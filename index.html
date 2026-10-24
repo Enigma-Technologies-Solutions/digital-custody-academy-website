@@ -2,121 +2,68 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/dca-logo.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/dca-logo.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/dca-logo.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/dca-logo.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/dca-logo.png"
-    />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0a0a0a" />
 
     <title>Digital Custody Academy: Professional Digital Asset Security Training</title>
     <meta
       name="description"
-      content="Digital Custody Academy provides comprehensive education in institutional-grade digital asset custody, security protocols, and best practices for teams managing crypto infrastructure."
+      content="Standards-aligned modules in digital asset custody and key management, delivered as Sanctum apps. Each module ends in a completion record the learner signs with their UAE PASS signature."
+    />
+    <link rel="canonical" href="https://digitalcustody.academy/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="icon" type="image/svg+xml" href="/dca-tile.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap"
     />
 
-    <link rel="canonical" id="canonical-link" href="https://digitalcustody.academy/" />
-    <meta name="robots" id="robots-meta" content="index, follow" />
-
-    <meta
-      property="og:title"
-      content="Digital Custody Academy: Professional Digital Asset Security Training"
-    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Digital Custody Academy" />
+    <meta property="og:url" content="https://digitalcustody.academy/" />
+    <meta property="og:title" content="Digital Custody Academy: Professional Digital Asset Security Training" />
     <meta
       property="og:description"
-      content="Comprehensive education in institutional-grade digital asset custody, security protocols, and best practices for teams managing crypto infrastructure."
+      content="Standards-aligned modules in digital asset custody and key management, delivered as Sanctum apps."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" id="og-url" content="https://digitalcustody.academy/" />
-    <meta
-      property="og:image"
-      id="og-image"
-      content="/dca-logo.png"
-    />
+    <meta property="og:image" content="https://digitalcustody.academy/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Digital Custody Academy" />
     <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Digital Custody Academy: Professional Digital Asset Security Training"
-    />
+    <meta name="twitter:title" content="Digital Custody Academy: Professional Digital Asset Security Training" />
     <meta
       name="twitter:description"
-      content="DCA provides comprehensive training in digital asset custody, key management, security protocols, and compliance frameworks for institutional teams."
+      content="Standards-aligned modules in digital asset custody and key management, delivered as Sanctum apps."
     />
-    <meta
-      name="twitter:image"
-      id="twitter-image"
-      content="/dca-logo.png"
-    />
+    <meta name="twitter:image" content="https://digitalcustody.academy/og.png" />
 
-    <script>
-      (function () {
-        try {
-          var origin = window.location.origin;
-          var url = window.location.href.split("#")[0];
-          var canonical = document.getElementById("canonical-link");
-          if (canonical) canonical.setAttribute("href", url);
-
-          var ogUrl = document.getElementById("og-url");
-          if (ogUrl) ogUrl.setAttribute("content", url);
-
-          var imgAbs = origin + "/dca-logo.png";
-          var ogImg = document.getElementById("og-image");
-          if (ogImg) ogImg.setAttribute("content", imgAbs);
-          var twImg = document.getElementById("twitter-image");
-          if (twImg) twImg.setAttribute("content", imgAbs);
-
-          var schema = {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Digital Custody Academy",
-            url: origin,
-            logo: origin + "/dca-logo.png",
-          };
-          var ld = document.createElement("script");
-          ld.type = "application/ld+json";
-          ld.text = JSON.stringify(schema);
-          document.head.appendChild(ld);
-        } catch (e) {}
-      })();
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Digital Custody Academy",
+        "url": "https://digitalcustody.academy/",
+        "logo": "https://digitalcustody.academy/dca-logo.png",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Enigma Technologies Solutions Limited",
+          "url": "https://enigma.sh"
+        }
+      }
     </script>
   </head>
 
   <body>
     <div id="root"></div>
-
     <script type="module" src="/client/App.tsx"></script>
   </body>
 </html>

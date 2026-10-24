@@ -1,6 +1,6 @@
 # Digital Custody Academy website
 
-Landing page for [digitalcustody.academy](https://digitalcustody.academy). A static Vite + React + Tailwind build, deployed to GitHub Pages on every push to `main` (see `.github/workflows/pages.yml`).
+Landing page for [digitalcustody.academy](https://digitalcustody.academy). A static Vite + React build styled with plain CSS (`client/site.css`), deployed to GitHub Pages on every push to `main` (see `.github/workflows/pages.yml`).
 
 Course modules are distributed separately as a Sanctum registry and do not live in this repo.
 
@@ -9,3 +9,16 @@ pnpm install
 pnpm dev          # http://localhost:5000
 pnpm build        # outputs dist/
 ```
+
+## Brand
+
+`styles/DCA_styleguide.html` is the source of truth (v2.0: the ETS product system with DCA colours). `client/site.css` uses its tokens.
+
+The tile icons in `public/` come from `public/dca-tile.svg`, which `scripts/gen-tile.py` draws from Poppins 700 outlines:
+
+```sh
+pip install fonttools brotli
+python3 scripts/gen-tile.py path/to/Poppins-700.woff2
+```
+
+Then render `dca-logo.png` (512), `icon-192.png`, `apple-touch-icon.png` (180), `favicon-32.png` and `favicon.ico` from the SVG.

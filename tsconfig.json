@@ -31,6 +31,6 @@
       "@/*": ["./client/*"]
     }
   },
-  "include": ["client/**/*", "vite.config.ts", "tailwind.config.ts"],
+  "include": ["client/**/*", "vite.config.ts"],
   "exclude": ["node_modules", "dist"]
 }
