@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DCA Brand Styleguide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Digital Custody Academy · Brand Styleguide v2.0
+   Built on the ETS product system shared by enigma.sh, sanctum.enigma.sh and
+   sigil.enigma.sh: light by default, ink leads, neutrals carry, one accent
+   highlights. Only the colours change. ETS volt becomes Custody Blue; ETS ink
+   becomes Deep Navy.
+   Custody Blue is a fill, never a text colour on white: foreground accents go
+   through --accent-fg, which is Signal Navy on light and Custody Blue on dark.
+   Dark theme: <html data-theme="dark">.
+   Poppins = display · Inter = UI/body · Space Mono = data, code, labels only.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces: white page, cool off-white for alternate sections and insets */
+  --bg:       #FFFFFF;
+  --bg-2:     #F4F6F9;
+  --card:     #FFFFFF;
+  --card-2:   #EEF2F7;
+  --line:     #E3E8EF;
+  --line-2:   #CDD5E0;
+
+  /* Ink (contrast on #FFFFFF: 14.8, 8.8, 5.4) */
+  --ink:      #0F2847;
+  --ink-2:    #3D4B63;
+  --ink-3:    #5E6B82;
+
+  /* Brand */
+  --navy:       #1B3A6B;   /* Academy Navy: tile, bands, course headers */
+  --signal:     #2C5AA0;   /* Signal Navy: small blue text, links */
+  --accent:     #5B8FD9;   /* Custody Blue: a fill, always with navy ink on top */
+  --accent-ink: #0F2847;
+  --accent-a12: #E3EDFA;
+  --accent-a24: #B9CFF0;
+
+  /* Semantic accents */
+  --accent-fg:   var(--signal);
+  --accent-line: var(--navy);
+  --focus:       var(--signal);
+  --em-bg:       linear-gradient(transparent 60%, var(--accent-a24) 60%, var(--accent-a24) 90%, transparent 90%);
+  --glow:        rgba(91, 143, 217, .22);
+  --nav-bg:      rgba(255, 255, 255, .84);
+  --shadow-pop:  0 20px 40px -24px rgba(15, 40, 71, .30);
+  --shadow-band: 0 30px 60px -24px rgba(15, 40, 71, .40);
+
+  /* Status */
+  --ok:       #15803D;
+  --ok-a12:   rgba(21, 128, 61, .10);
+  --warn:     #8F5B00;
+  --warn-a12: rgba(143, 91, 0, .10);
+  --bad:      #B42318;
+  --bad-a12:  rgba(180, 35, 24, .10);
+
+  /* Form */
+  --r-sm:     8px;
+  --r:        12px;
+  --r-lg:     18px;
+
+  /* Rhythm */
+  --gut:      clamp(16px, 5vw, 48px);
+  --maxw:     1240px;
+  --sect-y:   clamp(72px, 10vw, 128px);
+
+  --sans:     'Inter', system-ui, -apple-system, sans-serif;
+  --mono:     'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display:  'Poppins', system-ui, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:       #0B1A30;
+  --bg-2:     #0E203A;
+  --card:     #112543;
+  --card-2:   #152B4D;
+  --line:     #1F3557;
+  --line-2:   #2A4268;
+  --ink:      #EEF2F8;
+  --ink-2:    #9FAEC6;
+  --ink-3:    #7486A3;
+  --accent-a12: rgba(91, 143, 217, .14);
+  --accent-a24: rgba(91, 143, 217, .28);
+  --accent-fg:   var(--accent);
+  --accent-line: var(--accent);
+  --focus:       var(--accent);
+  --em-bg:       none;
+  --glow:        rgba(91, 143, 217, .10);
+  --nav-bg:      rgba(11, 26, 48, .80);
+  --shadow-pop:  0 24px 48px -20px rgba(0, 0, 0, .7);
+  --shadow-band: 0 30px 60px -24px rgba(0, 0, 0, .5);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 84px; background: var(--bg); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+code {
+  font-family: var(--mono); font-size: .86em;
+  background: var(--card-2); border: 1px solid var(--line); border-radius: 5px;
+  padding: 1px 6px; color: var(--ink); overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gut); }
+.section { padding-block: var(--sect-y); border-top: 1px solid var(--line); }
+.section--alt { background: var(--bg-2); }
+.shead { display: grid; gap: 20px 64px; align-items: end; margin-bottom: clamp(36px, 5vw, 56px); }
+.shead > * { min-width: 0; }
+@media (min-width: 960px) { .shead { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.grid2, .grid3, .grid4 { display: grid; gap: 16px; }
+.grid2 > *, .grid3 > *, .grid4 > * { min-width: 0; }
+@media (min-width: 800px) { .grid2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .grid4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ── Type primitives ───────────────────────────────────────────────────── */
+.eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 18px;
+}
+/* The DCA blue square: sharp, never rounded. Same device as the ETS volt square. */
+.eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--accent); flex: none; }
+.h2 { font-size: clamp(34px, 5.2vw, 60px); }
+.lede { font-size: clamp(16px, 1.35vw, 18px); color: var(--ink-2); max-width: 56ch; }
+.fine { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--ink-3); }
+.lab { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
+.note { font-size: 14px; color: var(--ink-2); margin-top: 14px; max-width: 72ch; }
+.note b { color: var(--ink); font-weight: 600; }
+
+/* The DCA full stop: a Custody Blue square on the baseline, sized to the type.
+   Ends lowercase section displays only. Body copy keeps normal punctuation. */
+.pd { display: inline-block; width: .18em; height: .18em; margin-left: .06em; background: var(--accent); vertical-align: baseline; }
+
+.em {
+  font-style: normal; color: var(--ink); background: var(--em-bg);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+:root[data-theme="dark"] .em { color: var(--accent-fg); }
+
+/* ── Surfaces & components ─────────────────────────────────────────────── */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(20px, 3vw, 28px); }
+.card--inset { background: var(--bg-2); }
+.card--feat { border-color: var(--accent-line); }
+
+.tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 9px; white-space: nowrap;
+}
+.tag--live { background: var(--accent-a12); border-color: var(--accent-a24); color: var(--accent-fg); }
+.tag--ok   { background: var(--ok-a12);   border-color: transparent; color: var(--ok); }
+.tag--warn { background: var(--warn-a12); border-color: transparent; color: var(--warn); }
+.tag--bad  { background: var(--bad-a12);  border-color: transparent; color: var(--bad); }
+:root[data-theme="dark"] .tag--ok   { color: #4ADE80; }
+:root[data-theme="dark"] .tag--warn { color: #FBBF24; }
+:root[data-theme="dark"] .tag--bad  { color: #F87171; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 46px; padding: 0 22px; border-radius: 10px;
+  font-family: var(--sans); font-weight: 600; font-size: 15px; white-space: nowrap;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s, transform .15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn--sm { height: 36px; padding: 0 14px; font-size: 14px; border-radius: 8px; }
+.btn--accent { background: var(--accent); color: var(--accent-ink); }
+.btn--accent:hover { background: #6E9CDE; }
+.btn--ink { background: var(--ink); color: var(--bg); }
+.btn--ink:hover { background: var(--ink-2); }
+.btn--ghost { border-color: var(--line-2); color: var(--ink); background: transparent; }
+.btn--ghost:hover { border-color: var(--ink-3); background: var(--card); }
+.btn--off { background: var(--card-2); color: var(--ink-3); cursor: default; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.arrow { display: inline-flex; transition: transform .15s; }
+a:hover > .arrow { transform: translateX(3px); }
+
+.points { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 14.5px; color: var(--ink-2); }
+.points li { display: flex; gap: 12px; align-items: flex-start; }
+.points li::before { content: ""; width: 6px; height: 6px; background: var(--accent); margin-top: 9px; flex: none; }
+.points--no li::before { background: transparent; outline: 1.5px solid var(--bad); outline-offset: -1.5px; }
+
+.facts { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; margin: 0; }
+.facts > div { background: var(--card); padding: 18px 22px; }
+.facts dt { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.facts dd { margin: 6px 0 0; font-size: 15px; color: var(--ink); }
+
+.tbl { border: 1px solid var(--line); border-radius: var(--r); overflow-x: auto; background: var(--card); }
+.tbl table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th {
+  text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); background: var(--bg-2); padding: 12px 16px; border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+.tbl td { padding: 12px 16px; border-top: 1px solid var(--line); color: var(--ink-2); vertical-align: middle; }
+.tbl tr:first-child td { border-top: 0; }
+.tbl td:first-child { color: var(--ink); font-weight: 500; }
+.tbl .mono { font-family: var(--mono); font-size: 12.5px; }
+
+/* ── Nav ───────────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100; background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav__inner { display: flex; align-items: center; gap: 28px; height: 64px; }
+.nav__links { display: none; gap: 22px; margin-right: auto; font-size: 14px; color: var(--ink-2); }
+.nav__links a:hover { color: var(--ink); }
+.nav__cta { margin-left: auto; display: flex; gap: 8px; }
+@media (min-width: 1000px) { .nav__links { display: flex; } .nav__cta { margin-left: 0; } }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+.wordmark__full { display: none; }
+@media (min-width: 560px) { .wordmark__full { display: inline; } }
+
+/* ── The DCA tile ──────────────────────────────────────────────────────────
+   Drawn like the ETS monogram tiles (Sanctum, Sigil): white letters on a
+   square, a Custody Blue frame inset, and a blue square on the baseline after
+   the last letter. Square 1:1, sharp corners. Three letters, so the type is
+   set smaller than a two-letter ETS tile at the same size.            */
+.tile {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; flex: none;
+  background: var(--navy); color: #FFFFFF;
+  font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: -0.02em; line-height: 1;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 4px var(--navy), inset 0 0 0 6px var(--accent);
+}
+.tile span { display: inline-flex; align-items: baseline; padding-bottom: .08em; }
+.tile i { display: inline-block; width: .2em; height: .2em; margin-left: .07em; background: var(--accent); align-self: baseline; }
+.tile--sm { width: 36px; height: 36px; font-size: 10px; box-shadow: inset 0 0 0 3px var(--navy), inset 0 0 0 4.5px var(--accent); }
+.tile--xl { width: 128px; height: 128px; font-size: 34px; box-shadow: inset 0 0 0 10px var(--navy), inset 0 0 0 15px var(--accent); }
+.tile--ghost { background: var(--card-2); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tile--ghost i { background: var(--accent); }
+.tile--rev { background: #FFFFFF; color: var(--navy); box-shadow: inset 0 0 0 4px #FFFFFF, inset 0 0 0 6px var(--accent); }
+.tile--rev.tile--xl { box-shadow: inset 0 0 0 10px #FFFFFF, inset 0 0 0 15px var(--accent); }
+
+/* The ETS badge, for the endorsement only: sharp black 3:2 tile, Inter 800. */
+.ets {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 33px; height: 22px; flex: none; background: #000; color: #fff;
+  font-family: var(--sans); font-weight: 800; font-size: 10px; letter-spacing: .01em; line-height: 1;
+}
+:root[data-theme="dark"] .ets { background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); }
+
+.lockup { display: inline-flex; align-items: center; gap: 14px; }
+.lockup__text { display: grid; gap: 3px; line-height: 1.2; }
+.lockup__name { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+.lockup__by { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+
+/* Logo cells */
+.logos { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+@media (min-width: 800px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.logo-cell { position: relative; min-height: 200px; display: grid; place-items: center; padding: 40px 20px 48px; background: var(--card); }
+.logo-cell--alt { background: var(--bg-2); }
+.logo-cell--navy { background: var(--navy); color: #fff; }
+.logo-cell--navy .lockup__by { color: #C5D0E0; }
+.logo-cell--navy .ets { background: transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+.logo-cell .cap { position: absolute; left: 16px; bottom: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.logo-cell--navy .cap { color: #C5D0E0; }
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.hero {
+  padding-block: clamp(56px, 8vw, 112px) clamp(64px, 9vw, 120px);
+  background: radial-gradient(60% 55% at 80% 40%, var(--glow), transparent 70%), var(--bg);
+}
+.hero__grid { display: grid; gap: clamp(40px, 6vw, 72px); align-items: center; }
+.hero__grid > * { min-width: 0; }
+@media (min-width: 1000px) { .hero__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+.hero h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 800; letter-spacing: -0.04em; line-height: .96; }
+.hero .lede { margin-top: 26px; }
+.hero .btn-row { margin-top: 32px; }
+.hero__art { display: grid; justify-items: center; gap: 20px; }
+
+/* ── Swatches ──────────────────────────────────────────────────────────── */
+.swatches { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.swatch { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; }
+.swatch:hover { border-color: var(--ink-3); }
+.swatch__chip { height: 76px; border-bottom: 1px solid var(--line); }
+.swatch__meta { display: grid; gap: 2px; padding: 10px 12px 12px; }
+.swatch__name { font-weight: 600; font-size: 14px; }
+.swatch__val { font-family: var(--mono); font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+
+.ratio { display: flex; height: 14px; border-radius: 999px; overflow: hidden; border: 1px solid var(--line); margin-top: 28px; }
+
+.sample { display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 13px; white-space: nowrap; }
+.v-ok { color: var(--ok); font-weight: 600; }
+.v-lg { color: var(--warn); font-weight: 600; }
+.v-no { color: var(--bad); font-weight: 600; }
+:root[data-theme="dark"] .v-ok { color: #4ADE80; }
+:root[data-theme="dark"] .v-lg { color: #FBBF24; }
+:root[data-theme="dark"] .v-no { color: #F87171; }
+
+/* ── Type specimens ────────────────────────────────────────────────────── */
+.spec { display: grid; gap: 10px 32px; padding: 22px 0; border-top: 1px solid var(--line); }
+.spec > * { min-width: 0; }
+@media (min-width: 800px) { .spec { grid-template-columns: 240px minmax(0, 1fr); align-items: baseline; } }
+.spec__label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); line-height: 1.6; }
+.spec__label b { display: block; font-weight: 400; letter-spacing: .02em; text-transform: none; color: var(--ink-2); }
+.glyphs { font-size: 22px; line-height: 1.35; color: var(--ink); overflow-wrap: anywhere; }
+
+/* ── Treatments ────────────────────────────────────────────────────────── */
+.band {
+  background: var(--navy); color: #FFFFFF; border-radius: var(--r-lg);
+  padding: clamp(28px, 5vw, 56px); box-shadow: var(--shadow-band);
+  display: grid; gap: 24px; align-items: end;
+}
+@media (min-width: 900px) { .band { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
+.band h3 { font-size: clamp(30px, 4.4vw, 52px); letter-spacing: -0.04em; }
+.band p { color: #C5D0E0; max-width: 46ch; margin-top: 14px; }
+.band .eyebrow { color: #C5D0E0; }
+.band .btn--ghost { color: #fff; border-color: rgba(255,255,255,.35); }
+.band .btn--ghost:hover { background: rgba(255,255,255,.08); border-color: #fff; }
+
+.course-head {
+  background: var(--navy); color: #fff; border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: 26px 24px 24px; display: grid; gap: 10px;
+}
+.course-head .fine { color: #C5D0E0; }
+.course-head h3 { font-size: 24px; }
+.course-body { border: 1px solid var(--line); border-top: 0; border-radius: 0 0 var(--r-lg) var(--r-lg); padding: 22px 24px 24px; background: var(--card); display: grid; gap: 14px; }
+.course-body p { color: var(--ink-2); font-size: 14.5px; }
+.course-body b { color: var(--ink); font-weight: 600; }
+
+.quote { margin: 0; border-left: 3px solid var(--accent-line); padding: 6px 0 6px 18px; font-size: 18px; line-height: 1.5; color: var(--ink); font-family: var(--display); font-weight: 600; letter-spacing: -0.01em; }
+
+/* Lesson steps */
+.steps { display: grid; gap: 10px; }
+.step { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); background: var(--card); }
+.step__n { width: 30px; height: 30px; flex: none; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); font-family: var(--mono); font-weight: 700; font-size: 13px; }
+.step__t { display: grid; gap: 1px; min-width: 0; }
+.step__t b { font-weight: 600; font-size: 15px; }
+.step__t span { font-size: 12.5px; color: var(--ink-3); }
+.step--done .step__n { background: var(--ink); color: var(--bg); }
+.step--locked { background: var(--bg-2); }
+.step--locked .step__n { background: var(--card-2); color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--line-2); }
+.step .tag { margin-left: auto; }
+
+/* Signing flow (module completion) */
+.flow { display: grid; gap: 12px; counter-reset: f; }
+@media (min-width: 900px) { .flow { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.flow > div { border: 1px solid var(--line); border-radius: var(--r); padding: 18px; background: var(--card); display: grid; gap: 8px; align-content: start; }
+.flow > div::before { counter-increment: f; content: "0" counter(f); font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); }
+.flow b { font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.flow p { font-size: 14px; color: var(--ink-2); }
+
+/* ── Lesson reading mode ───────────────────────────────────────────────── */
+.lesson { max-width: 720px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(22px, 4vw, 44px); }
+.lesson h1 { font-size: clamp(28px, 3.4vw, 36px); margin-bottom: 18px; }
+.lesson h2 { font-size: clamp(22px, 2.6vw, 28px); margin: 34px 0 12px; }
+.lesson h3 { font-size: 19px; margin: 28px 0 10px; letter-spacing: -0.02em; }
+.lesson p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; max-width: 66ch; }
+.lesson strong { color: var(--ink); font-weight: 600; }
+.lesson a { color: var(--accent-fg); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.lesson .quote { margin: 22px 0; }
+.lesson pre { margin: 18px 0; padding: 18px 20px; background: #0F2847; color: #EEF2F8; border-radius: var(--r); overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; }
+:root[data-theme="dark"] .lesson pre { background: var(--bg); border: 1px solid var(--line); }
+.lesson pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+
+/* ── Frameworks ────────────────────────────────────────────────────────── */
+.fw { display: flex; align-items: center; gap: 16px; }
+.fw img { height: 44px; width: 44px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 4px; flex: none; }
+.fw div { display: grid; gap: 2px; min-width: 0; }
+.fw b { font-weight: 600; font-size: 15px; }
+.fw span { font-size: 13px; color: var(--ink-3); }
+
+/* ── Tokens ────────────────────────────────────────────────────────────── */
+.tokens-wrap { position: relative; }
+.tokens {
+  margin: 0; background: #0F2847; color: #EEF2F8; border-radius: var(--r-lg);
+  padding: 24px 22px; font-family: var(--mono); font-size: 12.5px; line-height: 1.7;
+  overflow-x: auto; white-space: pre;
+}
+:root[data-theme="dark"] .tokens { background: var(--card); border: 1px solid var(--line); }
+.tokens .c { color: #7486A3; }
+.tokens .k { color: #9DBEEC; }
+.tokens .v { color: #FFFFFF; }
+.copy { position: absolute; top: 14px; right: 14px; }
+.tokens-wrap .btn--ghost { color: #EEF2F8; border-color: rgba(255,255,255,.25); background: #0F2847; }
+.tokens-wrap .btn--ghost:hover { border-color: #fff; }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.foot { border-top: 1px solid var(--line); background: var(--bg-2); padding-block: 56px 32px; font-size: 14px; }
+.foot__grid { display: grid; gap: 32px; }
+@media (min-width: 900px) { .foot__grid { grid-template-columns: 1.6fr 1fr; align-items: end; } }
+.foot__blurb { color: var(--ink-3); margin-top: 14px; max-width: 44ch; }
+.foot__bar { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+.foot__bar span:last-child { margin-left: auto; font-family: var(--mono); font-size: 11.5px; }
+
+.mt { margin-top: 16px !important; }
+.mt-lg { margin-top: 40px !important; }
+
+#toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0;
+  background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px;
+  font-family: var(--mono); font-size: 12px; transition: opacity .2s, transform .2s; pointer-events: none; z-index: 300;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="wordmark" href="#top">
+      <span class="tile tile--sm" aria-hidden="true"><span>DCA<i></i></span></span>
+      <span>Digital Custody Academy<span class="wordmark__full"> · Styleguide</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#academy">Academy</a><a href="#logo">Logo</a><a href="#color">Color</a><a href="#type">Type</a>
+      <a href="#treatments">Treatments</a><a href="#components">Components</a><a href="#modules">Modules</a><a href="#tokens">Tokens</a>
+    </nav>
+    <div class="nav__cta">
+      <button class="btn btn--ghost btn--sm" id="theme" type="button" aria-label="Toggle dark theme">Dark</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow">Digital Custody Academy · Brand Styleguide v2.0</p>
+      <h1>style<br>guide<span class="pd"></span></h1>
+      <p class="lede">The visual system for Digital Custody Academy. It runs on the same system as enigma.sh, Sanctum and Sigil: <span class="em">light by default, ink leads, neutrals carry, one accent highlights.</span> Only the colours change. ETS ink becomes Deep Navy and volt becomes Custody Blue.</p>
+      <div class="btn-row">
+        <a class="btn btn--accent" href="#tokens">Copy the tokens <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="#color">See the palette</a>
+      </div>
+    </div>
+    <div class="hero__art" aria-hidden="true">
+      <span class="tile tile--xl"><span>DCA<i></i></span></span>
+      <span class="fine">The DCA tile · 1:1 · sharp</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 ACADEMY ============ -->
+<section class="section section--alt" id="academy">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">01 · The Academy</p>
+        <h2 class="h2">secure. verified.<br>professional<span class="pd"></span></h2>
+      </div>
+      <p class="lede">DCA teaches the teams who hold other people's keys: board members, compliance officers, security engineers and custody operators. The curriculum is aligned to CCSS, CMTA DACS and NIST CSF, and each module ends in a credential the learner signs with their own UAE PASS signature.</p>
+    </div>
+    <div class="grid2">
+      <dl class="facts">
+        <div><dt>Tagline</dt><dd>Secure. Verified. Professional.</dd></div>
+        <div><dt>Descriptor</dt><dd>Professional Education in Digital Asset Security</dd></div>
+        <div><dt>Endorsement</dt><dd>An Enigma Technologies Solutions initiative</dd></div>
+        <div><dt>Delivery</dt><dd>Modules ship as Sanctum apps from the DCA registry</dd></div>
+      </dl>
+      <div class="grid2">
+        <div class="card">
+          <h4 class="lab">Voice · do</h4>
+          <ul class="points">
+            <li>Plain, precise, standards-literate. Name the framework, the control, the role.</li>
+            <li>Say who a module is for ("For compliance officers and operations leads").</li>
+            <li>Short declaratives. "Learn at your own pace."</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="lab">Voice · don't</h4>
+          <ul class="points points--no">
+            <li>Hype, price talk or crypto slang.</li>
+            <li>Fear-selling about hacks and losses.</li>
+            <li>Unverifiable claims about credentials or accreditation.</li>
+            <li>Em dashes. Use a colon, a comma, a middot or a new sentence.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 LOGO ============ -->
+<section class="section" id="logo">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">02 · Logo</p>
+        <h2 class="h2">the dca tile<span class="pd"></span></h2>
+      </div>
+      <p class="lede">The tile is drawn the same way as the ETS product tiles: white letters on a square, a Custody Blue frame inset, and a blue square on the baseline after the last letter. It replaces the v1 slab-mono PNG tiles. The square after "DCA" is the same device as the full stop on every section headline.</p>
+    </div>
+
+    <div class="logos">
+      <div class="logo-cell">
+        <span class="tile tile--xl" aria-label="DCA tile"><span>DCA<i></i></span></span>
+        <span class="cap">Primary · navy tile</span>
+      </div>
+      <div class="logo-cell logo-cell--navy">
+        <span class="tile tile--xl tile--rev" aria-label="DCA tile, reversed"><span>DCA<i></i></span></span>
+        <span class="cap">Reversed · on Academy Navy</span>
+      </div>
+      <div class="logo-cell logo-cell--alt">
+        <span class="tile tile--xl tile--ghost" aria-label="DCA tile, ghost"><span>DCA<i></i></span></span>
+        <span class="cap">Ghost · placeholders, empty states</span>
+      </div>
+      <div class="logo-cell">
+        <span class="lockup">
+          <span class="tile"><span>DCA<i></i></span></span>
+          <span class="lockup__text">
+            <span class="lockup__name">Digital Custody Academy</span>
+            <span class="lockup__by">an initiative of <span class="ets">ETS</span></span>
+          </span>
+        </span>
+        <span class="cap">Endorsed lockup · light</span>
+      </div>
+      <div class="logo-cell logo-cell--navy">
+        <span class="lockup">
+          <span class="tile tile--rev"><span>DCA<i></i></span></span>
+          <span class="lockup__text">
+            <span class="lockup__name">Digital Custody Academy</span>
+            <span class="lockup__by">an initiative of <span class="ets">ETS</span></span>
+          </span>
+        </span>
+        <span class="cap">Endorsed lockup · navy</span>
+      </div>
+      <div class="logo-cell logo-cell--alt">
+        <span class="wordmark"><span class="tile tile--sm"><span>DCA<i></i></span></span>Digital Custody Academy</span>
+        <span class="cap">Nav wordmark · 36 px tile</span>
+      </div>
+    </div>
+
+    <div class="grid2 mt-lg">
+      <div class="card">
+        <h4 class="lab">Construction</h4>
+        <ul class="points">
+          <li>Square 1:1, corners sharp. Never rounded, never a circle, never 3:2 (3:2 belongs to the ETS badge).</li>
+          <li>Frame: a 4 px navy gap, then a 2 px Custody Blue line, at 48 px. Scale both with the tile.</li>
+          <li>"DCA" in Poppins 700, cap height about 20% of the tile, letter-spacing -0.02em.</li>
+          <li>The blue square is 0.2em, sitting on the baseline 0.07em after the "A".</li>
+          <li>Minimum size: 32 px on screen, 10 mm in print. Clear space: ¼ of the tile on every side.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 class="lab">Rules</h4>
+        <ul class="points points--no">
+          <li>Don't put the navy tile on Academy Navy. Use the reversed tile.</li>
+          <li>Don't fill the tile with Custody Blue or add a gradient.</li>
+          <li>Don't drop the ETS endorsement from full lockups on marketing surfaces.</li>
+          <li>Don't use ETS volt on DCA surfaces. The ETS badge appears in black or outline only.</li>
+        </ul>
+        <p class="note">Export PNG and SVG versions of the tile from this construction and replace <code>public/dca-logo.png</code> and <code>dca-logo-white.png</code> once approved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 COLOR ============ -->
+<section class="section section--alt" id="color">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">03 · Color</p>
+        <h2 class="h2">navy leads,<br>blue highlights<span class="pd"></span></h2>
+      </div>
+      <p class="lede">Same structure as the ETS tokens, same names. Deep Navy is the ink, cool neutrals carry the page, Academy Navy builds the brand surfaces and Custody Blue is the single highlight. Click a swatch to copy its hex.</p>
+    </div>
+
+    <h4 class="lab">Brand</h4>
+    <div class="swatches">
+      <button class="swatch" data-copy="#0F2847"><div class="swatch__chip" style="background:#0F2847"></div><div class="swatch__meta"><span class="swatch__name">Deep Navy</span><span class="swatch__val">#0F2847 · --ink<br>Headlines, body ink</span></div></button>
+      <button class="swatch" data-copy="#1B3A6B"><div class="swatch__chip" style="background:#1B3A6B"></div><div class="swatch__meta"><span class="swatch__name">Academy Navy</span><span class="swatch__val">#1B3A6B · --navy<br>Tile, bands, course heads</span></div></button>
+      <button class="swatch" data-copy="#2C5AA0"><div class="swatch__chip" style="background:#2C5AA0"></div><div class="swatch__meta"><span class="swatch__name">Signal Navy</span><span class="swatch__val">#2C5AA0 · --signal<br>Links, small blue text</span></div></button>
+      <button class="swatch" data-copy="#5B8FD9"><div class="swatch__chip" style="background:#5B8FD9"></div><div class="swatch__meta"><span class="swatch__name">Custody Blue</span><span class="swatch__val">#5B8FD9 · --accent<br>Fills, squares, CTA</span></div></button>
+      <button class="swatch" data-copy="#E3EDFA"><div class="swatch__chip" style="background:#E3EDFA"></div><div class="swatch__meta"><span class="swatch__name">Blue 12</span><span class="swatch__val">#E3EDFA · --accent-a12<br>Live tags, tints</span></div></button>
+      <button class="swatch" data-copy="#B9CFF0"><div class="swatch__chip" style="background:#B9CFF0"></div><div class="swatch__meta"><span class="swatch__name">Blue 24</span><span class="swatch__val">#B9CFF0 · --accent-a24<br>Highlighter band</span></div></button>
+    </div>
+
+    <h4 class="lab mt-lg">Neutrals</h4>
+    <div class="swatches">
+      <button class="swatch" data-copy="#FFFFFF"><div class="swatch__chip" style="background:#FFFFFF"></div><div class="swatch__meta"><span class="swatch__name">White</span><span class="swatch__val">#FFFFFF · --bg / --card</span></div></button>
+      <button class="swatch" data-copy="#F4F6F9"><div class="swatch__chip" style="background:#F4F6F9"></div><div class="swatch__meta"><span class="swatch__name">Mist</span><span class="swatch__val">#F4F6F9 · --bg-2<br>Alternate sections</span></div></button>
+      <button class="swatch" data-copy="#EEF2F7"><div class="swatch__chip" style="background:#EEF2F7"></div><div class="swatch__meta"><span class="swatch__name">Inset</span><span class="swatch__val">#EEF2F7 · --card-2<br>Code chips, wells</span></div></button>
+      <button class="swatch" data-copy="#E3E8EF"><div class="swatch__chip" style="background:#E3E8EF"></div><div class="swatch__meta"><span class="swatch__name">Line</span><span class="swatch__val">#E3E8EF · --line</span></div></button>
+      <button class="swatch" data-copy="#CDD5E0"><div class="swatch__chip" style="background:#CDD5E0"></div><div class="swatch__meta"><span class="swatch__name">Line 2</span><span class="swatch__val">#CDD5E0 · --line-2</span></div></button>
+      <button class="swatch" data-copy="#3D4B63"><div class="swatch__chip" style="background:#3D4B63"></div><div class="swatch__meta"><span class="swatch__name">Ink 2</span><span class="swatch__val">#3D4B63 · --ink-2<br>Body on white</span></div></button>
+      <button class="swatch" data-copy="#5E6B82"><div class="swatch__chip" style="background:#5E6B82"></div><div class="swatch__meta"><span class="swatch__name">Ink 3</span><span class="swatch__val">#5E6B82 · --ink-3<br>Captions, labels</span></div></button>
+    </div>
+
+    <div class="ratio" aria-hidden="true">
+      <span style="flex:62;background:#FFFFFF"></span><span style="flex:18;background:#F4F6F9"></span><span style="flex:10;background:#0F2847"></span><span style="flex:6;background:#1B3A6B"></span><span style="flex:4;background:#5B8FD9"></span>
+    </div>
+    <p class="note">Rough distribution on a page: <b>80% white and mist · 16% navy (ink, tile, one band) · 4% Custody Blue.</b> This inverts v1, where navy covered most of the page.</p>
+
+    <h4 class="lab mt-lg">Contrast</h4>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Pair</th><th>Sample</th><th>Ratio</th><th>WCAG</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td>Deep Navy on White</td><td><span class="sample" style="background:#fff;color:#0F2847;border:1px solid #E3E8EF">Aa custody</span></td><td class="mono">14.84</td><td class="v-ok">AAA</td><td>Headlines, body ink</td></tr>
+          <tr><td>Ink 2 on White</td><td><span class="sample" style="background:#fff;color:#3D4B63;border:1px solid #E3E8EF">Aa custody</span></td><td class="mono">8.80</td><td class="v-ok">AAA</td><td>Body copy, ledes</td></tr>
+          <tr><td>Ink 3 on White</td><td><span class="sample" style="background:#fff;color:#5E6B82;border:1px solid #E3E8EF">Aa custody</span></td><td class="mono">5.38</td><td class="v-ok">AA</td><td>Captions, labels</td></tr>
+          <tr><td>Ink 3 on Mist</td><td><span class="sample" style="background:#F4F6F9;color:#5E6B82">Aa custody</span></td><td class="mono">4.97</td><td class="v-ok">AA</td><td>Captions on alternate sections</td></tr>
+          <tr><td>Signal Navy on White</td><td><span class="sample" style="background:#fff;color:#2C5AA0;border:1px solid #E3E8EF">Aa custody</span></td><td class="mono">6.82</td><td class="v-ok">AA</td><td>Links, --accent-fg on light</td></tr>
+          <tr><td>Deep Navy on Custody Blue</td><td><span class="sample" style="background:#5B8FD9;color:#0F2847">Start module</span></td><td class="mono">4.51</td><td class="v-ok">AA</td><td>Accent buttons, step numbers</td></tr>
+          <tr><td>White on Custody Blue</td><td><span class="sample" style="background:#5B8FD9;color:#fff">Start module</span></td><td class="mono">3.29</td><td class="v-no">Fails body</td><td>Never</td></tr>
+          <tr><td>Custody Blue on White</td><td><span class="sample" style="background:#fff;color:#5B8FD9;border:1px solid #E3E8EF">Aa custody</span></td><td class="mono">3.29</td><td class="v-no">Fails body</td><td>Never as text. Fills and squares only.</td></tr>
+          <tr><td>White on Academy Navy</td><td><span class="sample" style="background:#1B3A6B;color:#fff">Aa custody</span></td><td class="mono">11.27</td><td class="v-ok">AAA</td><td>Bands, course heads</td></tr>
+          <tr><td>#C5D0E0 on Academy Navy</td><td><span class="sample" style="background:#1B3A6B;color:#C5D0E0">Aa custody</span></td><td class="mono">7.23</td><td class="v-ok">AAA</td><td>Secondary text on navy</td></tr>
+          <tr><td>Custody Blue on dark --bg</td><td><span class="sample" style="background:#0B1A30;color:#5B8FD9">Aa custody</span></td><td class="mono">5.29</td><td class="v-ok">AA</td><td>--accent-fg on dark</td></tr>
+          <tr><td>Ink 3 on dark --bg</td><td><span class="sample" style="background:#0B1A30;color:#7486A3">Aa custody</span></td><td class="mono">4.72</td><td class="v-ok">AA</td><td>Captions on dark</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The one-line rule, same as ETS volt:</b> Custody Blue is a fill, never text on white. Foreground accents go through <code>--accent-fg</code>: Signal Navy on light, Custody Blue on dark. Anything filled with Custody Blue takes Deep Navy text.</p>
+
+    <h4 class="lab mt-lg">ETS to DCA</h4>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Token</th><th>ETS (enigma.sh, Sanctum, Sigil)</th><th>DCA</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">--ink</td><td class="mono">#0A0A09</td><td class="mono">#0F2847</td></tr>
+          <tr><td class="mono">--bg-2 / --card-2</td><td class="mono">#F7F7F4 / #F2F2EE (warm)</td><td class="mono">#F4F6F9 / #EEF2F7 (cool)</td></tr>
+          <tr><td class="mono">--volt → --accent</td><td class="mono">#FBFF00</td><td class="mono">#5B8FD9</td></tr>
+          <tr><td class="mono">--volt-ink → --accent-ink</td><td class="mono">#0A0A09</td><td class="mono">#0F2847</td></tr>
+          <tr><td class="mono">--accent-fg (light)</td><td class="mono">var(--ink)</td><td class="mono">#2C5AA0</td></tr>
+          <tr><td class="mono">--navy</td><td class="mono">n/a</td><td class="mono">#1B3A6B</td></tr>
+          <tr><td>Type, radii, rhythm, components</td><td>Shared</td><td>Unchanged</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 TYPE ============ -->
+<section class="section" id="type">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">04 · Typography</p>
+        <h2 class="h2">poppins × inter<span class="pd"></span></h2>
+      </div>
+      <p class="lede">The ETS product stack. Poppins sets display, Inter sets UI and body, Space Mono is limited to data, code and labels. The v1 rule of Space Mono for body copy is retired: long lessons read better in Inter.</p>
+    </div>
+
+    <div class="spec">
+      <div class="spec__label">Hero<b>Poppins 800 · -0.04em · 0.96</b></div>
+      <div style="font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,88px);letter-spacing:-0.04em;line-height:.96">digital<br>custody<span class="pd"></span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Section display<b>Poppins 700 · lowercase · -0.03em</b></div>
+      <div style="font-family:var(--display);font-weight:700;font-size:clamp(32px,4.6vw,56px);letter-spacing:-0.03em;line-height:1.05">featured modules<span class="pd"></span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Card / module title<b>Poppins 700 · 24 px · Title Case</b></div>
+      <div style="font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-0.02em">Foundations of Digital Custody</div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Lede<b>Inter 400 · 18 px · Ink 2</b></div>
+      <div style="font-size:18px;color:var(--ink-2);max-width:56ch">Learn how institutions generate, store and recover keys, and how auditors check that they did.</div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Body<b>Inter 400 · 16 px · 1.6</b></div>
+      <div style="font-size:16px;color:var(--ink-2);max-width:64ch">Introduction to blockchain architecture, key management fundamentals, hot and cold storage, and custody operating frameworks.</div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Eyebrow / label<b>Space Mono 400 · 11.5 px · UPPER · .14em</b></div>
+      <div><span class="eyebrow" style="margin:0">Module 01 · Beginner to Intermediate</span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__label">Data<b>Space Mono 400 · 12.5 px</b></div>
+      <div style="font-family:var(--mono);font-size:12.5px;color:var(--ink-2)">DCA-2026-000123 · sha256 8f3c…a91b · 12 h</div>
+    </div>
+
+    <div class="grid3 mt-lg">
+      <div class="card"><h4 class="lab">Poppins · display</h4><div class="glyphs" style="font-family:var(--display);font-weight:700">abcdefghijklm<br>nopqrstuvwxyz<br>ABCDEF 0123456789</div></div>
+      <div class="card"><h4 class="lab">Inter · UI and body</h4><div class="glyphs">abcdefghijklm<br>nopqrstuvwxyz<br>ABCDEF 0123456789</div></div>
+      <div class="card"><h4 class="lab">Space Mono · data</h4><div class="glyphs" style="font-family:var(--mono);font-size:19px">abcdefghijklm<br>nopqrstuvwxyz<br>0x8f3c…a91b</div></div>
+    </div>
+    <p class="note"><b>Casing:</b> section displays are lowercase and end in the blue square ("about dca", "get in touch"). Module and lesson titles use Title Case with no square. Never set a headline in all caps.</p>
+  </div>
+</section>
+
+<!-- ============ 05 TREATMENTS ============ -->
+<section class="section section--alt" id="treatments">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">05 · Signature Treatments</p>
+        <h2 class="h2">the blue square<span class="pd"></span></h2>
+      </div>
+      <p class="lede">The ETS square, in Custody Blue. It marks eyebrows, list bullets, the tile and the end of a section display. One navy band per page carries the call to action, where ETS uses a volt band.</p>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <h4 class="lab">Square</h4>
+        <p class="eyebrow" style="margin-bottom:14px">Eyebrow square · 8 px</p>
+        <ul class="points"><li>Bullet square · 6 px</li><li>Sharp, never a dot</li></ul>
+        <p style="font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-0.03em;margin-top:18px">full stop<span class="pd"></span></p>
+      </div>
+      <div class="card">
+        <h4 class="lab">Highlighter</h4>
+        <p style="font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-0.03em;line-height:1.15">custody is a <span class="em">discipline</span>, not a product.</p>
+        <p class="note">Blue 24 band behind navy ink, on light only. One phrase per page. In dark theme it becomes Custody Blue text.</p>
+      </div>
+      <div class="card">
+        <h4 class="lab">Rule quote</h4>
+        <blockquote class="quote">A signature proves possession of a key, not the identity of a person.</blockquote>
+        <p class="note">3 px rule in <code>--accent-line</code>, Poppins 600. Not italic.</p>
+      </div>
+    </div>
+
+    <div class="band mt">
+      <div>
+        <p class="eyebrow">Band · one per page</p>
+        <h3>start the first<br>module<span class="pd"></span></h3>
+        <p>Install it from the DCA registry in Sanctum. It runs offline on your machine.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--accent" href="#modules">Open in Sanctum <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="#modules">How it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 COMPONENTS ============ -->
+<section class="section" id="components">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">06 · UI Components</p>
+        <h2 class="h2">interface kit<span class="pd"></span></h2>
+      </div>
+      <p class="lede">The ETS kit unchanged in shape: 46 px buttons with a 10 px radius, 18 px cards with a hairline border, pill tags in Space Mono. Shadows only on floating elements and the band.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4 class="lab">Buttons</h4>
+        <div class="btn-row">
+          <a class="btn btn--accent" href="#components">Start module</a>
+          <a class="btn btn--ink" href="#components">View modules</a>
+          <a class="btn btn--ghost" href="#components">Syllabus</a>
+          <span class="btn btn--off">Coming soon</span>
+        </div>
+        <div class="btn-row mt">
+          <a class="btn btn--accent btn--sm" href="#components">Install</a>
+          <a class="btn btn--ghost btn--sm" href="#components">Details <span class="arrow">→</span></a>
+        </div>
+        <p class="note">One accent button per view. Ink is the secondary action, ghost the tertiary.</p>
+      </div>
+      <div class="card">
+        <h4 class="lab">Tags</h4>
+        <div class="btn-row">
+          <span class="tag tag--live">Available</span><span class="tag">Coming soon</span><span class="tag tag--ok">Signed</span><span class="tag tag--warn">Awaiting signature</span><span class="tag tag--bad">Signature invalid</span>
+        </div>
+        <h4 class="lab mt-lg">Facts</h4>
+        <dl class="facts">
+          <div><dt>Credential ID</dt><dd style="font-family:var(--mono);font-size:14px">DCA-2026-000123</dd></div>
+          <div><dt>Signed with</dt><dd>UAE PASS signature</dd></div>
+        </dl>
+      </div>
+
+      <div>
+        <div class="course-head">
+          <span class="fine">Module 01 · Beginner to Intermediate</span>
+          <h3>Foundations of Digital Custody</h3>
+        </div>
+        <div class="course-body">
+          <p>Blockchain architecture, key management, hot and cold storage, and custody operating frameworks.</p>
+          <p><b>For:</b> board members, compliance officers, operations managers</p>
+          <div class="btn-row"><a class="btn btn--accent btn--sm" href="#components">Start module</a><span class="tag tag--live">Available</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4 class="lab">Lesson steps</h4>
+        <div class="steps">
+          <div class="step step--done"><span class="step__n">1</span><span class="step__t"><b>Cryptographic Provenance</b><span>Lesson 1 · 25 min</span></span><span class="tag tag--ok">Done</span></div>
+          <div class="step"><span class="step__n">2</span><span class="step__t"><b>Key Management Fundamentals</b><span>Lesson 2 · 40 min</span></span><span class="tag tag--live">Next</span></div>
+          <div class="step step--locked"><span class="step__n">3</span><span class="step__t"><b>Hot and Cold Storage</b><span>Lesson 3 · 35 min</span></span><span class="tag">Locked</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 MODULES ============ -->
+<section class="section section--alt" id="modules">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">07 · Modules in Sanctum</p>
+        <h2 class="h2">signed, not<br>clicked through<span class="pd"></span></h2>
+      </div>
+      <p class="lede">Each module is a set of Sanctum apps from the DCA registry. Completion is a document the learner signs, not a checkbox. The flow below is the one visual pattern every module uses for it.</p>
+    </div>
+
+    <div class="flow">
+      <div><b>Scan</b><p>The module shows a QR code when the final assessment is passed.</p></div>
+      <div><b>Generate</b><p>The QR opens a Vestige-based PDF of the completion record.</p></div>
+      <div><b>Sign</b><p>The learner signs the PDF with their own UAE PASS signature.</p></div>
+      <div><b>Upload</b><p>The signed PDF is uploaded back and checked. The credential is issued.</p></div>
+    </div>
+
+    <div class="grid2 mt-lg">
+      <div class="card">
+        <h4 class="lab">Module app icons</h4>
+        <div class="btn-row">
+          <span class="tile"><span>M1<i></i></span></span>
+          <span class="tile"><span>M2<i></i></span></span>
+          <span class="tile tile--ghost"><span>M3<i></i></span></span>
+        </div>
+        <p class="note">Module apps use the DCA tile with a short code in place of "DCA". Ghost tiles mark modules not yet released.</p>
+      </div>
+      <div class="card">
+        <h4 class="lab">Rules</h4>
+        <ul class="points">
+          <li>Call it a UAE PASS signature. Don't say "verified by UAE PASS" or imply an integration.</li>
+          <li>Use the official UAE PASS button art only, unrecoloured, never on Custody Blue.</li>
+          <li>Show signature state with tags: Awaiting signature, Signed, Signature invalid.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 LESSON ============ -->
+<section class="section" id="lesson">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">08 · Lesson Content</p>
+        <h2 class="h2">reading mode<span class="pd"></span></h2>
+      </div>
+      <p class="lede">Lessons are long reads: white surface, Inter at 17 px, navy only in code blocks. Sample content below, not curriculum.</p>
+    </div>
+    <article class="lesson">
+      <h1>Cryptographic Provenance</h1>
+      <p>Provenance answers a simple question: <strong>who signed this, and has it changed since?</strong> A detached signature over a hash lets an auditor check both without trusting the channel it came through. See the <a href="#lesson">CCSS key-generation controls</a>.</p>
+      <h2>Why custody depends on it</h2>
+      <blockquote class="quote">A signature proves possession of a key, not the identity of a person. Identity comes from the key ceremony.</blockquote>
+      <p>Hash the artefact, then verify the signature against the published key:</p>
+<pre><code>$ openssl dgst -sha256 -verify pub.pem \
+    -signature report.sig report.pdf
+Verified OK</code></pre>
+      <h3>Framework mapping</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Control</th><th>CCSS</th><th>NIST CSF</th></tr></thead>
+          <tbody>
+            <tr><td>Key generation</td><td class="mono">1.01</td><td class="mono">PR.DS-1</td></tr>
+            <tr><td>Signature verification</td><td class="mono">1.05</td><td class="mono">PR.DS-6</td></tr>
+            <tr><td>Audit logging</td><td class="mono">3.02</td><td class="mono">DE.CM-3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 09 FRAMEWORKS ============ -->
+<section class="section section--alt" id="frameworks">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">09 · Frameworks &amp; Co-Branding</p>
+        <h2 class="h2">standards &amp;<br>endorsement<span class="pd"></span></h2>
+      </div>
+      <p class="lede">Standards bodies appear as references, not partners: logo on white at 44 px, name, one line, link out with <code>rel="nofollow"</code>. The ETS endorsement sits in the lockup and the footer.</p>
+    </div>
+    <div class="grid3">
+      <div class="card fw"><img src="../public/ccss-logo.png" alt=""><div><b>CCSS v9.0</b><span>CryptoCurrency Security Standard</span></div></div>
+      <div class="card fw"><img src="../public/cmta-dacs-logo.png" alt=""><div><b>CMTA DACS v2.0</b><span>Digital Assets Custody Standard</span></div></div>
+      <div class="card fw"><img src="../public/nist-csf-logo.png" alt=""><div><b>NIST CSF</b><span>Cybersecurity Framework</span></div></div>
+    </div>
+    <div class="grid2 mt-lg">
+      <div class="card">
+        <h4 class="lab">Imagery</h4>
+        <ul class="points">
+          <li>Prefer typography, the tile and diagrams over photography.</li>
+          <li>Diagrams: Deep Navy strokes, one Custody Blue highlight, Space Mono labels.</li>
+          <li>Photos, if any: cool, desaturated, real infrastructure or people at work.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 class="lab">Don't</h4>
+        <ul class="points points--no">
+          <li>Glowing coins, padlocks, hooded hackers or other stock-crypto clichés.</li>
+          <li>Framework logos arranged as a "trusted by" or partner wall.</li>
+          <li>Volt yellow anywhere on DCA.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 TOKENS ============ -->
+<section class="section" id="tokens">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow">10 · Design Tokens</p>
+        <h2 class="h2">copy &amp; build<span class="pd"></span></h2>
+      </div>
+      <p class="lede">Drop-in replacement for the ETS <code>:root</code> block. Any stylesheet written against enigma.sh, Sanctum or Sigil tokens picks up DCA colours with this block, after renaming <code>--volt*</code> to <code>--accent*</code>.</p>
+    </div>
+    <div class="tokens-wrap">
+      <button class="btn btn--ghost btn--sm copy" data-target="tok" type="button">Copy CSS</button>
+<pre class="tokens" id="tok"><span class="c">/* Digital Custody Academy · tokens v2.0 · ETS product system */</span>
+:root {
+  color-scheme: light;
+  <span class="k">--bg</span>: <span class="v">#FFFFFF</span>;  <span class="k">--bg-2</span>: <span class="v">#F4F6F9</span>;
+  <span class="k">--card</span>: <span class="v">#FFFFFF</span>;  <span class="k">--card-2</span>: <span class="v">#EEF2F7</span>;
+  <span class="k">--line</span>: <span class="v">#E3E8EF</span>;  <span class="k">--line-2</span>: <span class="v">#CDD5E0</span>;
+  <span class="k">--ink</span>: <span class="v">#0F2847</span>;  <span class="k">--ink-2</span>: <span class="v">#3D4B63</span>;  <span class="k">--ink-3</span>: <span class="v">#5E6B82</span>;
+
+  <span class="c">/* brand: Custody Blue is a fill, always with navy ink on top */</span>
+  <span class="k">--navy</span>: <span class="v">#1B3A6B</span>;  <span class="k">--signal</span>: <span class="v">#2C5AA0</span>;
+  <span class="k">--accent</span>: <span class="v">#5B8FD9</span>;  <span class="k">--accent-ink</span>: <span class="v">#0F2847</span>;
+  <span class="k">--accent-a12</span>: <span class="v">#E3EDFA</span>;  <span class="k">--accent-a24</span>: <span class="v">#B9CFF0</span>;
+
+  <span class="k">--accent-fg</span>: <span class="v">var(--signal)</span>;  <span class="k">--accent-line</span>: <span class="v">var(--navy)</span>;  <span class="k">--focus</span>: <span class="v">var(--signal)</span>;
+  <span class="k">--em-bg</span>: <span class="v">linear-gradient(transparent 60%, var(--accent-a24) 60%, var(--accent-a24) 90%, transparent 90%)</span>;
+  <span class="k">--glow</span>: <span class="v">rgba(91, 143, 217, .22)</span>;  <span class="k">--nav-bg</span>: <span class="v">rgba(255, 255, 255, .84)</span>;
+
+  <span class="k">--ok</span>: <span class="v">#15803D</span>;  <span class="k">--warn</span>: <span class="v">#8F5B00</span>;  <span class="k">--bad</span>: <span class="v">#B42318</span>;
+
+  <span class="c">/* shared with ETS, unchanged */</span>
+  <span class="k">--r-sm</span>: <span class="v">8px</span>;  <span class="k">--r</span>: <span class="v">12px</span>;  <span class="k">--r-lg</span>: <span class="v">18px</span>;
+  <span class="k">--gut</span>: <span class="v">clamp(20px, 5vw, 48px)</span>;  <span class="k">--maxw</span>: <span class="v">1240px</span>;  <span class="k">--sect-y</span>: <span class="v">clamp(80px, 11vw, 144px)</span>;
+  <span class="k">--sans</span>: <span class="v">'Inter', system-ui, sans-serif</span>;
+  <span class="k">--mono</span>: <span class="v">'Space Mono', ui-monospace, monospace</span>;
+  <span class="k">--display</span>: <span class="v">'Poppins', system-ui, sans-serif</span>;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  <span class="k">--bg</span>: <span class="v">#0B1A30</span>;  <span class="k">--bg-2</span>: <span class="v">#0E203A</span>;
+  <span class="k">--card</span>: <span class="v">#112543</span>;  <span class="k">--card-2</span>: <span class="v">#152B4D</span>;
+  <span class="k">--line</span>: <span class="v">#1F3557</span>;  <span class="k">--line-2</span>: <span class="v">#2A4268</span>;
+  <span class="k">--ink</span>: <span class="v">#EEF2F8</span>;  <span class="k">--ink-2</span>: <span class="v">#9FAEC6</span>;  <span class="k">--ink-3</span>: <span class="v">#7486A3</span>;
+  <span class="k">--accent-a12</span>: <span class="v">rgba(91, 143, 217, .14)</span>;  <span class="k">--accent-a24</span>: <span class="v">rgba(91, 143, 217, .28)</span>;
+  <span class="k">--accent-fg</span>: <span class="v">var(--accent)</span>;  <span class="k">--accent-line</span>: <span class="v">var(--accent)</span>;  <span class="k">--focus</span>: <span class="v">var(--accent)</span>;
+  <span class="k">--em-bg</span>: <span class="v">none</span>;  <span class="k">--glow</span>: <span class="v">rgba(91, 143, 217, .10)</span>;  <span class="k">--nav-bg</span>: <span class="v">rgba(11, 26, 48, .80)</span>;
+}</pre>
+    </div>
+    <p class="note">Fonts: <code>https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap</code>. Self-host them in Sanctum apps, which run offline.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <span class="lockup">
+          <span class="tile"><span>DCA<i></i></span></span>
+          <span class="lockup__text">
+            <span class="lockup__name">Digital Custody Academy</span>
+            <span class="lockup__by">an initiative of <span class="ets">ETS</span></span>
+          </span>
+        </span>
+        <p class="foot__blurb">Professional education in digital asset security. Enigma Technologies Solutions Limited, Ras Al Khaimah, United Arab Emirates.</p>
+      </div>
+      <p class="fine">Brand Styleguide v2.0 · supersedes v1.0 (DCA_styleguide_light.html) · reference only</p>
+    </div>
+    <div class="foot__bar"><span>digitalcustody.academy</span><span>ETS product system · DCA colours</span></div>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('theme');
+  function setTheme(t) {
+    if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    themeBtn.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('dca-sg-theme', t); } catch (e) {}
+  }
+  let saved = null;
+  try { saved = localStorage.getItem('dca-sg-theme'); } catch (e) {}
+  setTheme(saved === 'dark' ? 'dark' : 'light');
+  themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+  const toast = document.getElementById('toast');
+  function flash(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => toast.classList.remove('show'), 1300); }
+  function copy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).catch(() => fallback(text));
+    return fallback(text);
+  }
+  function fallback(text) {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); return Promise.resolve();
+  }
+  document.querySelectorAll('[data-copy]').forEach(el => el.addEventListener('click', () => copy(el.dataset.copy).then(() => flash('Copied ' + el.dataset.copy))));
+  document.querySelectorAll('[data-target]').forEach(el => el.addEventListener('click', () => copy(document.getElementById(el.dataset.target).innerText).then(() => flash('Tokens copied'))));
+</script>
+</body>
+</html>
