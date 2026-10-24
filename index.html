@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/dca-logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/dca-logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/dca-logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/dca-logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/dca-logo.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <title>Digital Custody Academy — Professional Digital Asset Security Training</title>
+    <meta
+      name="description"
+      content="Digital Custody Academy provides comprehensive education in institutional-grade digital asset custody, security protocols, and best practices for teams managing crypto infrastructure."
+    />
+
+    <link rel="canonical" id="canonical-link" href="https://digitalcustody.academy/" />
+    <meta name="robots" id="robots-meta" content="index, follow" />
+
+    <meta
+      property="og:title"
+      content="Digital Custody Academy — Professional Digital Asset Security Training"
+    />
+    <meta
+      property="og:description"
+      content="Comprehensive education in institutional-grade digital asset custody, security protocols, and best practices for teams managing crypto infrastructure."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" id="og-url" content="https://digitalcustody.academy/" />
+    <meta
+      property="og:image"
+      id="og-image"
+      content="/dca-logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Digital Custody Academy" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Digital Custody Academy — Professional Digital Asset Security Training"
+    />
+    <meta
+      name="twitter:description"
+      content="DCA provides comprehensive training in digital asset custody, key management, security protocols, and compliance frameworks for institutional teams."
+    />
+    <meta
+      name="twitter:image"
+      id="twitter-image"
+      content="/dca-logo.png"
+    />
+
+    <script>
+      (function () {
+        try {
+          var origin = window.location.origin;
+          var url = window.location.href.split("#")[0];
+          var canonical = document.getElementById("canonical-link");
+          if (canonical) canonical.setAttribute("href", url);
+
+          var ogUrl = document.getElementById("og-url");
+          if (ogUrl) ogUrl.setAttribute("content", url);
+
+          var imgAbs = origin + "/dca-logo.png";
+          var ogImg = document.getElementById("og-image");
+          if (ogImg) ogImg.setAttribute("content", imgAbs);
+          var twImg = document.getElementById("twitter-image");
+          if (twImg) twImg.setAttribute("content", imgAbs);
+
+          var schema = {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Digital Custody Academy",
+            url: origin,
+            logo: origin + "/dca-logo.png",
+          };
+          var ld = document.createElement("script");
+          ld.type = "application/ld+json";
+          ld.text = JSON.stringify(schema);
+          document.head.appendChild(ld);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="module" src="/client/App.tsx"></script>
+  </body>
+</html>
