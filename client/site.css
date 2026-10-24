@@ -461,6 +461,41 @@ a:hover > .arrow { transform: translateX(3px); }
 .flow__step p { font-size: 14.5px; color: var(--ink-2); }
 .flow__note { margin-top: 24px; font-size: 14px; color: var(--ink-3); max-width: 72ch; }
 
+/* ── Instructors ───────────────────────────────────────────────────────── */
+.person {
+  display: grid;
+  gap: 0;
+  overflow: hidden;
+  max-width: 980px;
+}
+@media (min-width: 760px) { .person { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); } }
+.person__photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--card-2);
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 760px) { .person__photo { border-bottom: 0; border-right: 1px solid var(--line); } }
+.person__body { padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; align-content: center; min-width: 0; }
+.person__body .eyebrow { margin-bottom: 0; }
+.person__name { font-size: clamp(26px, 3vw, 34px); }
+.person__bio { color: var(--ink-2); font-size: 16px; max-width: 58ch; }
+.person__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.person__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.person__links a { color: var(--accent-fg); display: inline-flex; gap: 6px; align-items: center; overflow-wrap: anywhere; }
+.person__links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 /* ── Band (contact) ────────────────────────────────────────────────────── */
 .section--band { padding-block: clamp(40px, 6vw, 72px); }
 .band {
@@ -477,7 +512,8 @@ a:hover > .arrow { transform: translateX(3px); }
 .band .eyebrow { color: #C5D0E0; }
 .band .h2 { font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.04em; }
 .band p:not(.eyebrow) { font-size: 17px; max-width: 46ch; margin-top: 16px; color: #C5D0E0; }
-.band__mail { font-family: var(--mono); font-size: 14px; color: #FFFFFF !important; }
+.band__mail { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 14px; color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .4); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.band__mail:hover { text-decoration-color: #FFFFFF; }
 .band .btn--ghost { color: #fff; border-color: rgba(255, 255, 255, .35); }
 .band .btn--ghost:hover { background: rgba(255, 255, 255, .08); border-color: #fff; }
 

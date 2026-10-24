@@ -1,4 +1,4 @@
-const CONTACT = "hello[at]digitalcustody.academy";
+const CONTACT = "jjpa@digitalcustody.academy";
 const SANCTUM = "https://sanctum.enigma.sh";
 
 const Arrow = () => (
@@ -13,6 +13,7 @@ const NAV = [
   { href: "#about", label: "About" },
   { href: "#modules", label: "Modules" },
   { href: "#how", label: "How it works" },
+  { href: "#instructors", label: "Instructors" },
 ];
 
 const FRAMEWORKS = [
@@ -338,6 +339,58 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Instructors */}
+        <section className="section section--alt" id="instructors">
+          <div className="wrap">
+            <div className="shead">
+              <div>
+                <p className="eyebrow">04 · Instructors</p>
+                <h2 className="h2">
+                  your instructors
+                  <Stop />
+                </h2>
+              </div>
+              <p className="lede">
+                The modules are written and taught by practitioners who have built custody and
+                signing systems.
+              </p>
+            </div>
+
+            <article className="card person">
+              <img
+                className="person__photo"
+                src="/instructor-jjpa.jpg"
+                alt="José J. Pérez Aguinaga"
+                width={760}
+                height={950}
+                loading="lazy"
+              />
+              <div className="person__body">
+                <p className="eyebrow">Lead instructor</p>
+                <h3 className="person__name">José J. Pérez Aguinaga</h3>
+                <p className="person__bio">
+                  Cryptography engineer and educator focused on digital asset custody for retail
+                  and institutional markets. VP of Solutions Engineering at Dfns, former co-founder
+                  and CTO of Tungsten, and founder of conFIEL, self-sovereign identity for digital
+                  signatures in Latin America. Writes and runs workshops on blockchain technology
+                  and passkeys.
+                </p>
+                <ul className="person__tags">
+                  <li className="tag">Digital custody</li>
+                  <li className="tag">Self-sovereign identity</li>
+                  <li className="tag">Passkeys</li>
+                </ul>
+                <div className="person__links">
+                  <a href={`mailto:${CONTACT}`}>{CONTACT}</a>
+                  <a href="https://jjperezaguinaga.com" rel="noopener" target="_blank">
+                    jjperezaguinaga.com <Arrow />
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
         {/* Contact */}
         <section className="section section--band" id="contact">
           <div className="wrap">
@@ -352,7 +405,9 @@ export default function Index() {
                   For module availability, team enrolment or questions about the curriculum,
                   write to us.
                 </p>
-                <p className="band__mail">{CONTACT}</p>
+                <a className="band__mail" href={`mailto:${CONTACT}`}>
+                  {CONTACT}
+                </a>
               </div>
               <div className="btn-row">
                 <a className="btn btn--accent" href={SANCTUM}>

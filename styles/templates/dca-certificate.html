@@ -6,12 +6,13 @@
 <title>DCA Course Certificate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Poppins:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   /* ============================================================
      DCA COURSE CERTIFICATE · A4 landscape (297 x 210 mm)
-     Tokens copied from ../DCA_styleguide_light.html (section 09).
+     Tokens from ../DCA_styleguide.html v2.0 (ETS product system,
+     DCA colours). Poppins = display · Inter = text · Space Mono = data.
      Fill: edit CERT below, or pass query params
        ?name=...&course=...&level=...&hours=...&issued=...&id=...
         &signatory=...&role=...&verify=...&guides=0
@@ -20,29 +21,30 @@
      appearance (PAdES). Its position is fixed in mm, see .seal-zone.
      ============================================================ */
   :root{
-    --dca-navy-dark:   #0F2847;
-    --dca-navy:        #1B3A6B;
-    --dca-navy-light:  #2C5AA0;
-    --dca-accent:      #5B8FD9;
-    --dca-white:       #FFFFFF;
-    --dca-grey-light:  #F3F4F6;
-    --dca-grey-medium: #D1D5DB;
-    --dca-grey-dark:   #6B7280;
-    --dca-text-dark:   #1F2937;
-    --line-ink:        #E5E7EB;
+    --bg:        #FFFFFF;
+    --bg-2:      #F4F6F9;
+    --line:      #E3E8EF;
+    --line-2:    #CDD5E0;
+    --ink:       #0F2847;
+    --ink-2:     #3D4B63;
+    --ink-3:     #5E6B82;
+    --navy:      #1B3A6B;
+    --signal:    #2C5AA0;
+    --accent:    #5B8FD9;
+    --on-navy-2: #C5D0E0;
 
     --display: 'Poppins', system-ui, sans-serif;
+    --sans:    'Inter', system-ui, sans-serif;
     --mono:    'Space Mono', ui-monospace, monospace;
-    --radius-sm: 4px;
   }
 
   @page{ size: A4 landscape; margin: 0; }
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
   body{
-    background: var(--dca-grey-light);
-    color: var(--dca-text-dark);
-    font-family: var(--mono);
+    background: var(--bg-2);
+    color: var(--ink);
+    font-family: var(--sans);
     -webkit-font-smoothing: antialiased;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -51,39 +53,64 @@
   .sheet{
     width: 297mm; height: 210mm;
     margin: 12mm auto;
-    background: var(--dca-white);
+    background: var(--bg);
     display: grid;
-    grid-template-columns: 100mm 1fr;
+    grid-template-columns: 96mm 1fr;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(15,40,71,.12);
+    box-shadow: 0 20px 40px -24px rgba(15,40,71,.30);
   }
 
-  /* ---------- left: navy panel (course header gradient) ---------- */
+  /* ---------- left: Academy Navy panel ---------- */
   .brand{
-    background: linear-gradient(to bottom, var(--dca-navy), var(--dca-navy-dark));
-    color: var(--dca-white);
+    background: var(--navy);
+    color: #fff;
     padding: 16mm 14mm 12mm;
     display: flex; flex-direction: column;
   }
   .lockup{ display:flex; align-items:center; gap:4mm; }
-  .lockup img{ width:14mm; height:14mm; border-radius:var(--radius-sm); display:block; }
-  .lockup .wm{ display:flex; flex-direction:column; line-height:1.35; }
-  .lockup .wm b{ font-weight:400; font-size:9.5pt; letter-spacing:.03em; }
-  .lockup .wm small{ font-size:6.5pt; letter-spacing:.03em; color:rgba(255,255,255,.55); }
+  .lockup .wm{ display:flex; flex-direction:column; gap:1mm; line-height:1.2; }
+  .lockup .wm b{ font-family: var(--display); font-weight:700; font-size:10.5pt; letter-spacing:-.01em; }
+  .lockup .wm small{ font-size:7pt; color:var(--on-navy-2); }
+
+  /* Reversed DCA tile: white square, Custody Blue frame inset, navy letters,
+     blue square after the last letter. Sharp corners. */
+  .tile{
+    width:14mm; height:14mm; flex:none;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:#fff; color:var(--navy);
+    font-family:var(--display); font-weight:700; font-size:10.5pt; letter-spacing:-.02em; line-height:1;
+    box-shadow: inset 0 0 0 1.2mm #fff, inset 0 0 0 1.75mm var(--accent);
+  }
+  .tile span{ display:inline-flex; align-items:baseline; padding-bottom:.08em; }
+  .tile i{ display:inline-block; width:.2em; height:.2em; margin-left:.07em; background:var(--accent); }
+
+  .eyebrow{
+    display:flex; align-items:center; gap:2.5mm;
+    font-family: var(--mono); font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+    margin: 0 0 4mm;
+  }
+  .eyebrow::before{ content:""; width:2.2mm; height:2.2mm; background:var(--accent); flex:none; }
+  .brand .eyebrow{ color: var(--on-navy-2); margin-top: auto; }
 
   .title{
-    margin-top: auto;
-    font-family: var(--display); font-weight: 700;
-    font-size: 30pt; line-height: 1.05; letter-spacing: -.01em;
-    margin-bottom: 7mm;
+    font-family: var(--display); font-weight: 800;
+    font-size: 26pt; line-height: .98; letter-spacing: -.04em;
+    margin: 0 0 7mm;
   }
-  .pd{ color: var(--dca-accent); }
-  .tagline{ font-size:8pt; letter-spacing:.06em; color:var(--dca-grey-medium); margin:0 0 12mm; }
+  .pd{ display:inline-block; width:.18em; height:.18em; margin-left:.06em; background:var(--accent); }
+  .tagline{ font-size:8.5pt; color:var(--on-navy-2); margin:0 0 12mm; }
   .endorse{
-    border-top: 1px solid rgba(255,255,255,.12);
+    border-top: 1px solid rgba(255,255,255,.16);
     padding-top: 4mm;
-    font-size: 6.5pt; line-height: 1.8; color: rgba(255,255,255,.55);
+    display:flex; align-items:center; gap:3mm;
+    font-size: 7pt; line-height: 1.6; color: var(--on-navy-2);
+  }
+  .ets{
+    width:8.5mm; height:5.6mm; flex:none;
+    display:inline-flex; align-items:center; justify-content:center;
+    box-shadow: inset 0 0 0 .3mm rgba(255,255,255,.45); color:#fff;
+    font-family:var(--sans); font-weight:800; font-size:6pt; letter-spacing:.01em;
   }
 
   /* ---------- right: reading ground ---------- */
@@ -92,69 +119,65 @@
     display: flex; flex-direction: column;
     position: relative;
   }
-  .kicker{
-    display:flex; align-items:center; gap:3.5mm;
-    font-size: 8pt; letter-spacing: .22em; text-transform: uppercase;
-    color: var(--dca-grey-dark); margin: 0 0 5mm;
-  }
-  .kicker::before{ content:""; width:10mm; height:2px; background:var(--dca-accent); }
+  .body .eyebrow{ color: var(--ink-3); }
 
   .name{
     font-family: var(--display); font-weight: 700;
-    font-size: 34pt; line-height: 1.15; letter-spacing: -.005em;
+    font-size: 34pt; line-height: 1.15; letter-spacing: -.03em;
     margin: 0 0 6mm; white-space: nowrap; overflow: hidden;
   }
-  .lead{ font-size: 10pt; line-height: 1.625; margin: 0 0 3mm; }
+  .lead{ font-size: 10.5pt; line-height: 1.6; color: var(--ink-2); margin: 0 0 3mm; }
   .course{
     font-family: var(--display); font-weight: 700;
-    font-size: 21pt; line-height: 1.25; margin: 0 0 2.5mm;
+    font-size: 21pt; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 2.5mm;
   }
   .level{
-    font-size: 8.5pt; letter-spacing: .06em; text-transform: uppercase;
-    color: var(--dca-grey-dark); margin: 0 0 6mm;
+    font-family: var(--mono); font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-3); margin: 0 0 6mm;
   }
-  .aligned{ font-size: 8.5pt; line-height: 1.6; margin: 0; max-width: 140mm; }
-  .aligned b{ font-weight: 700; color: var(--dca-navy); }
+  .aligned{ font-size: 9pt; line-height: 1.6; color: var(--ink-2); margin: 0; max-width: 140mm; }
+  .aligned b{ font-weight: 600; color: var(--ink); }
 
   .meta{
-    margin-top: 8mm;
+    margin: 8mm 0 0;
     display: grid; grid-template-columns: repeat(3, auto); justify-content: start; column-gap: 12mm;
-    border-top: 1px solid var(--line-ink); padding-top: 4mm;
+    border-top: 1px solid var(--line); padding-top: 4mm;
   }
-  .meta dt{ font-size: 6.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--dca-grey-dark); margin: 0 0 1mm; }
-  .meta dd{ font-size: 9pt; margin: 0; }
+  .meta dt{ font-family: var(--mono); font-size: 6.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 1mm; }
+  .meta dd{ font-size: 9.5pt; margin: 0; }
+  .meta dd.data{ font-family: var(--mono); font-size: 9pt; }
 
   /* bottom row: signatory · seal · verify */
   .foot{
     margin-top: auto;
     display: grid; grid-template-columns: 1fr 52mm 26mm; column-gap: 8mm; align-items: end;
   }
-  .sign .line{ border-top: 1px solid var(--dca-text-dark); width: 62mm; margin-bottom: 2mm; }
-  .sign b{ display:block; font-family: var(--display); font-weight:600; font-size: 10pt; }
-  .sign span{ font-size: 7.5pt; color: var(--dca-grey-dark); }
+  .sign .line{ border-top: 1px solid var(--ink); width: 62mm; margin-bottom: 2mm; }
+  .sign b{ display:block; font-family: var(--display); font-weight:600; font-size: 10pt; letter-spacing:-.01em; }
+  .sign span{ font-size: 8pt; color: var(--ink-3); }
 
   .seal-zone{
     width: 52mm; height: 26mm;
     display:flex; align-items:center; justify-content:center; text-align:center;
-    font-size: 6.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--dca-grey-dark);
+    font-family: var(--mono); font-size: 6.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
   }
   .guides .seal-zone{
-    outline: 1px dashed #9CA3AF;
-    background: repeating-linear-gradient(45deg, rgba(91,143,217,.10) 0 6px, transparent 6px 12px);
+    outline: 1px dashed var(--line-2);
+    background: repeating-linear-gradient(45deg, rgba(91,143,217,.12) 0 6px, transparent 6px 12px);
   }
   body:not(.guides) .seal-zone span{ visibility: hidden; }
 
   .verify{ display:flex; flex-direction:column; align-items:flex-end; gap:1.5mm; }
   .verify #qr{ width:22mm; height:22mm; }
   .verify #qr img, .verify #qr canvas{ width:22mm !important; height:22mm !important; display:block; }
-  .verify small{ font-size: 6pt; letter-spacing:.1em; text-transform:uppercase; color: var(--dca-grey-dark); }
+  .verify small{ font-family: var(--mono); font-size: 6pt; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-3); }
   .verify-url{
     position: absolute; right: 18mm; bottom: 6mm;
-    font-size: 6.5pt; color: var(--dca-navy-light); text-decoration: none;
+    font-family: var(--mono); font-size: 6.5pt; color: var(--signal); text-decoration: none;
   }
 
   @media print{
-    body{ background: var(--dca-white); }
+    body{ background: var(--bg); }
     .sheet{ margin: 0; box-shadow: none; }
     .guides .seal-zone{ outline: 0; background: none; }
     .guides .seal-zone span{ visibility: hidden; }
@@ -166,32 +189,33 @@
 <main class="sheet">
   <aside class="brand">
     <div class="lockup">
-      <img src="../../public/dca-logo-white.png" alt="DCA">
-      <span class="wm"><b>Digital Custody Academy</b><small>an Enigma Technologies Solutions initiative</small></span>
+      <span class="tile" aria-label="DCA"><span>DCA<i></i></span></span>
+      <span class="wm"><b>Digital Custody Academy</b><small>professional education in digital asset security</small></span>
     </div>
 
-    <div class="title">certificate<br>of completion<span class="pd">.</span></div>
+    <p class="eyebrow">Credential</p>
+    <div class="title">certificate<br>of completion<span class="pd"></span></div>
     <p class="tagline">Secure. Verified. Professional.</p>
 
     <div class="endorse">
-      Enigma Technologies Solutions Limited<br>
-      Ras Al Khaimah, United Arab Emirates
+      <span class="ets">ETS</span>
+      <span>An initiative of Enigma Technologies Solutions Limited<br>Ras Al Khaimah, United Arab Emirates</span>
     </div>
   </aside>
 
   <section class="body">
-    <p class="kicker">This certifies that</p>
+    <p class="eyebrow">This certifies that</p>
     <h1 class="name" data-field="name"></h1>
 
     <p class="lead">has completed all lessons and the final assessment of</p>
     <h2 class="course" data-field="course"></h2>
-    <p class="level"><span data-field="level"></span> · <span data-field="hours"></span> hours · Online, self-paced</p>
+    <p class="level"><span data-field="level"></span> · <span data-field="hours"></span> hours · Self-paced</p>
 
-    <p class="aligned">Curriculum aligned to <b>CCSS v9.0</b>, <b>CMTA DACS v2.0</b> and <b>NIST CSF</b>.</p>
+    <p class="aligned">Curriculum aligned to <b>CCSS v9.0</b>, <b>CMTA DACS</b> and <b>NIST CSF 2.0</b>.</p>
 
     <dl class="meta">
       <div><dt>Issued</dt><dd data-field="issued"></dd></div>
-      <div><dt>Credential ID</dt><dd data-field="id"></dd></div>
+      <div><dt>Credential ID</dt><dd class="data" data-field="id"></dd></div>
       <div><dt>Issuer</dt><dd>Digital Custody Academy</dd></div>
     </dl>
 
@@ -220,7 +244,7 @@
     hours:     "12",
     issued:    "20 October 2026",
     id:        "DCA-2026-000123",
-    signatory: "José Aguinaga",
+    signatory: "José J. Pérez Aguinaga",
     role:      "Director, Digital Custody Academy",
     verify:    "https://digitalcustody.academy/verify/"
   };
