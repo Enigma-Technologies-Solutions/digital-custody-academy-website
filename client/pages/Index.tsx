@@ -14,6 +14,7 @@ const NAV = [
   { href: "#modules", label: "Modules" },
   { href: "#how", label: "How it works" },
   { href: "#instructors", label: "Instructors" },
+  { href: "/blog/", label: "Blog" },
 ];
 
 const FRAMEWORKS = [
@@ -437,6 +438,9 @@ export default function Index() {
               <p className="foot__blurb">
                 Professional education in digital asset security. Secure. Verified. Professional.
               </p>
+              <nav className="foot__links" aria-label="Footer">
+                <a href="/blog/">Blog</a>
+              </nav>
             </div>
             <a className="foot__by" href="https://enigma.sh">
               An initiative of <span className="ets">ETS</span> Enigma Technologies Solutions

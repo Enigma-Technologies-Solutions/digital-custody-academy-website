@@ -10,6 +10,10 @@ pnpm dev          # http://localhost:5000
 pnpm build        # outputs dist/
 ```
 
+## Blog
+
+Static pages at `/blog/`, built from `blog-src/*.md` by `scripts/build-blog.mjs`, which `pnpm dev` and `pnpm build` run first. Preview drafts with `pnpm dev:drafts`. How to write, preview and publish a post: [`docs/blog.md`](docs/blog.md).
+
 ## Brand
 
 `styles/DCA_styleguide.html` is the source of truth (v2.0: the ETS product system with DCA colours). `client/site.css` uses its tokens.

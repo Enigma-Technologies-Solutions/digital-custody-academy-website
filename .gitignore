@@ -4,3 +4,7 @@ dist
 .env.*
 certs
 .DS_Store
+
+# Blog output: generated from blog-src/ by scripts/build-blog.mjs (see docs/blog.md)
+public/blog/*
+!public/blog/.gitkeep
