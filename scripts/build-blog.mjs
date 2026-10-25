@@ -20,7 +20,7 @@ const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(repo, 'blog-src');
 const OUT = join(repo, 'public/blog');
 const SITE = 'https://digitalcustody.academy';
-const OG_IMAGE_ALT = 'Digital Custody Academy: standards-aligned modules, delivered as Sanctum apps.';
+const OG_IMAGE_ALT = 'Digital Custody Academy: standards-aligned modules, online and on your own machine.';
 
 export class PostError extends Error {}
 

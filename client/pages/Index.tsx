@@ -71,20 +71,20 @@ const MODULES = [
 
 const STEPS = [
   {
-    title: "Install",
-    body: "Get Sanctum, add the DCA registry and install the module. It runs as a set of apps on your own machine.",
+    title: "Learn online",
+    body: "Work through the lessons and assessments in your browser, at your own pace.",
   },
   {
-    title: "Learn",
-    body: "Work through the lessons and the final assessment inside the module, at your own pace.",
+    title: "Go hands-on",
+    body: "Lessons that use a hardware wallet, a smart card or another native interface run in Sanctum, installed from the DCA registry on your own machine.",
+  },
+  {
+    title: "Complete",
+    body: "Pass the final assessment to receive the completion record for the module.",
   },
   {
     title: "Sign",
-    body: "Scan the QR code the module shows. It produces a Vestige-based PDF of your completion record, which you sign with your own UAE PASS signature.",
-  },
-  {
-    title: "Upload",
-    body: "Upload the signed PDF. DCA checks the signature against the record and issues your credential.",
+    body: "Sign the record through an identity provider. The signature ties the certificate to the person who completed the course.",
   },
 ];
 
@@ -135,10 +135,9 @@ export default function Index() {
                 <Stop />
               </h1>
               <p className="hero__sub">
-                Standards-aligned modules for the teams who hold other people's keys. Each module
-                runs as a Sanctum app on your own machine and ends in a{" "}
-                <span className="em">completion record you sign yourself</span>, with your UAE
-                PASS signature.
+                Standards-aligned modules for the teams who hold other people's keys. Learn
+                online, with hands-on lessons in Sanctum on your own machine, and finish with a{" "}
+                <span className="em">completion record you sign yourself</span>.
               </p>
               <div className="btn-row">
                 <a className="btn btn--accent" href="#modules">
@@ -193,7 +192,7 @@ export default function Index() {
             <span className="strip__label">How DCA works</span>
             <ul>
               <li>Aligned to CCSS, CMTA DACS and NIST CSF</li>
-              <li>Delivered as Sanctum apps</li>
+              <li>Online, and on your own machine</li>
               <li>Completion signed by the learner</li>
             </ul>
           </div>
@@ -273,8 +272,8 @@ export default function Index() {
                 </h2>
               </div>
               <p className="lede">
-                Four modules are in preparation. Each one is published to the DCA registry in
-                Sanctum when it is ready.
+                Four modules are in preparation. Each one is published when it is ready, online,
+                with its hands-on lessons in the DCA registry in Sanctum.
               </p>
             </div>
 
@@ -334,8 +333,7 @@ export default function Index() {
               ))}
             </div>
             <p className="flow__note">
-              DCA does not connect to UAE PASS. You sign the PDF yourself, with your own
-              signature, and upload the result.
+              The first supported courses will be in the UAE, signed with UAE PASS.
             </p>
           </div>
         </section>
