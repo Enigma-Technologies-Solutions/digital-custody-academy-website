@@ -14,6 +14,12 @@ pnpm build        # outputs dist/
 
 Static pages at `/blog/`, built from `blog-src/*.md` by `scripts/build-blog.mjs`, which `pnpm dev` and `pnpm build` run first. Preview drafts with `pnpm dev:drafts`. How to write, preview and publish a post: [`docs/blog.md`](docs/blog.md).
 
+The same script writes the RSS feed (`/blog/feed.xml`) and the site's other static pages from `pages-src/*.md` (for now `/privacy/`).
+
+## Newsletter
+
+Sign-up forms (`#updates` on the landing page, and a box at the end of the blog pages) post to the newsletter Worker at `newsletter.enigmahq.sh` (private repo `enigma-newsletter-worker`), which emails a confirmation link before adding anyone. `public/newsletter.js` handles every `<form data-newsletter="dca">` and loads Cloudflare Turnstile only when someone focuses a form. On `localhost` it uses the Worker's dev server (`http://localhost:8795`) and Turnstile's test key instead.
+
 ## Brand
 
 `styles/DCA_styleguide.html` is the source of truth (v2.0: the ETS product system with DCA colours). `client/site.css` uses its tokens.

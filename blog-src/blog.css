@@ -44,3 +44,8 @@
 .blog__body pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 .blog__back { margin-top: clamp(40px, 6vw, 56px); padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; font-weight: 600; color: var(--accent-fg); max-width: 612px; }
 @media (max-width: 600px) { .blog__body { line-height: 1.65; } }
+
+/* Newsletter box at the end of posts and the post list (form styles: client/site.css). */
+.nl-box { margin-top: clamp(40px, 6vw, 56px); padding: clamp(20px, 3vw, 28px); max-width: 612px; background: var(--bg-2); }
+.nl-box__h { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 14px; }
+.blog__list + .nl-box { max-width: 780px; }

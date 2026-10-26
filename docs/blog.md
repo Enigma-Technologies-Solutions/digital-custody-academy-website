@@ -138,3 +138,15 @@ Draft output in `public/blog/` is harmless: it is git-ignored, and the next `pnp
    two later. The landing page links to `/blog/` from its nav and footer.
 
 To unpublish a post, add `draft: "true"` back and push.
+
+## RSS feed and other pages
+
+The build also writes `public/blog/feed.xml`, an RSS 2.0 feed of published posts (drafts
+never appear in it, even with `--drafts`). Pages link to it with
+`<link rel="alternate">`, and the footer links to it.
+
+Pages that are not posts, such as `/privacy/`, are `pages-src/<name>.md` with three
+frontmatter fields, all required: `title`, `description` and `updated` (`YYYY-MM-DD`,
+shown as "Last updated"). The body uses the same Markdown subset. Each becomes
+`public/<name>/index.html` (git-ignored, rebuilt every run) in the blog's page template.
+When a page is added, add its folder to `.gitignore` as for `public/privacy/`.

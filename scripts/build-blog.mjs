@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-// Builds the blog: blog-src/<date>-<slug>.md becomes public/blog/index.html and
-// public/blog/<slug>/index.html. Static HTML pages next to the React landing page;
-// Vite copies public/ into dist/ unchanged, so they deploy at /blog/ with the rest of
-// the site. Authoring guide: docs/blog.md.
+// Builds the blog: blog-src/<date>-<slug>.md becomes public/blog/index.html,
+// public/blog/<slug>/index.html and the RSS feed public/blog/feed.xml. Also builds the
+// site's other static pages from pages-src/<name>.md (public/<name>/index.html, for now
+// only /privacy/). Static HTML next to the React landing page; Vite copies public/ into
+// dist/ unchanged, so they deploy with the rest of the site. Authoring guide: docs/blog.md.
 //
 //   node scripts/build-blog.mjs            published posts only (what `pnpm build` runs)
 //   node scripts/build-blog.mjs --drafts   drafts too, marked as drafts, for local preview
@@ -19,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(repo, 'blog-src');
 const OUT = join(repo, 'public/blog');
+const PAGES_SRC = join(repo, 'pages-src');
 const SITE = 'https://digitalcustody.academy';
 const OG_IMAGE_ALT = 'Digital Custody Academy: standards-aligned modules, online and on your own machine.';
 
@@ -151,12 +153,28 @@ export function markdown(src) {
 
 const longDate = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
+// The sign-up form, as in client/pages/Index.tsx; public/newsletter.js posts it.
+const NEWSLETTER = `<section class="card nl-box" aria-labelledby="nl-h">
+      <h2 class="nl-box__h" id="nl-h">Get new posts and modules by email</h2>
+      <form class="nl" data-newsletter="dca" novalidate>
+        <label class="nl__label" for="nl-email">Email address</label>
+        <div class="nl__row">
+          <input id="nl-email" class="nl__input" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+          <button class="btn btn--accent" type="submit">Subscribe</button>
+        </div>
+        <label class="nl__hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="nl__challenge"></div>
+        <p class="nl__status" role="status" aria-live="polite"></p>
+        <p class="nl__fine">We email you a link to confirm. Every issue has an unsubscribe link. <a href="/privacy/">Privacy</a></p>
+      </form>
+    </section>`;
+
 const TILE = (cls) => `<span class="tile${cls}" aria-hidden="true"><span>DCA<i></i></span></span>`;
 
 // `title` is the page <title>; `shareTitle` is the title on link previews, without the
 // site name, which og:site_name already carries. `published` (YYYY-MM-DD) adds
-// article:published_time.
-function shell({ title, shareTitle = title, description, path, body, draft = false, ogType = 'website', published }) {
+// article:published_time. `current` is the nav link to mark as the current page.
+function shell({ title, shareTitle = title, description, path, body, draft = false, ogType = 'website', published, current = 'blog' }) {
   const url = `${SITE}${path}`;
   return `<!doctype html>
 <html lang="en">
@@ -177,6 +195,8 @@ function shell({ title, shareTitle = title, description, path, body, draft = fal
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="/blog/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Digital Custody Academy blog" href="/blog/feed.xml">
+<script src="/newsletter.js" defer></script>
 <meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="Digital Custody Academy">
 <meta property="og:locale" content="en_US">
@@ -204,9 +224,10 @@ ${published ? `<meta property="article:published_time" content="${esc(published)
       <a href="/#modules">Modules</a>
       <a href="/#how">How it works</a>
       <a href="/#instructors">Instructors</a>
-      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="/blog/"${current === 'blog' ? ' aria-current="page"' : ''}>Blog</a>
     </div>
     <div class="nav__cta">
+      <a class="btn btn--ghost btn--sm" href="/#updates">Get updates</a>
       <a class="btn btn--accent btn--sm" href="/#contact">Contact</a>
     </div>
   </div>
@@ -224,6 +245,12 @@ ${body}
       <div>
         <a class="wordmark" href="/">${TILE('')}<span>Digital Custody Academy</span></a>
         <p class="foot__blurb">Professional education in digital asset security. Secure. Verified. Professional.</p>
+        <nav class="foot__links" aria-label="Footer">
+          <a href="/blog/">Blog</a>
+          <a href="/blog/feed.xml">RSS</a>
+          <a href="/#updates">Newsletter</a>
+          <a href="/privacy/">Privacy</a>
+        </nav>
       </div>
       <a class="foot__by" href="https://enigma.sh">An initiative of <span class="ets">ETS</span> Enigma Technologies Solutions</a>
     </div>
@@ -251,7 +278,8 @@ export function indexPage(posts) {
     .join('\n');
   const body = `    <p class="eyebrow">Blog</p>
     <h1 class="h2 blog__h1">Notes on digital custody<span class="pd" aria-hidden="true"></span></h1>
-${posts.length ? `    <div class="blog__list">\n${items}\n    </div>` : '    <p class="lede blog__empty">No posts yet.</p>'}`;
+${posts.length ? `    <div class="blog__list">\n${items}\n    </div>` : '    <p class="lede blog__empty">No posts yet.</p>'}
+    ${NEWSLETTER}`;
   return shell({
     title: 'Blog | Digital Custody Academy',
     shareTitle: 'Notes on digital custody',
@@ -270,6 +298,7 @@ export function postPage(post) {
     <div class="blog__body">
 ${post.html}
     </div>
+    ${NEWSLETTER}
     <p class="blog__back"><a href="/blog/">Back to the blog</a></p>
     </article>`;
   return shell({
@@ -284,6 +313,90 @@ ${post.html}
   });
 }
 
+const rfc822 = (iso) => new Date(`${iso}T00:00:00Z`).toUTCString();
+
+/** RSS 2.0, newest first. Published posts only, whatever the build includes. */
+export function feed(posts) {
+  const items = posts
+    .filter((p) => !p.draft)
+    .map(
+      (p) => `    <item>
+      <title>${esc(p.title)}</title>
+      <link>${SITE}/blog/${esc(p.slug)}/</link>
+      <guid isPermaLink="true">${SITE}/blog/${esc(p.slug)}/</guid>
+      <pubDate>${rfc822(p.date)}</pubDate>
+      <description>${esc(p.excerpt)}</description>
+    </item>`,
+    )
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Digital Custody Academy blog</title>
+    <link>${SITE}/blog/</link>
+    <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Articles on digital asset custody, key management and the standards behind them.</description>
+    <language>en</language>
+${items}
+  </channel>
+</rss>
+`;
+}
+
+// ── Other pages (pages-src/<name>.md → public/<name>/index.html) ────────────
+// Frontmatter: title, description and updated (YYYY-MM-DD), all required. Same Markdown
+// subset as posts.
+
+export function parsePage(file, text) {
+  const where = `pages-src/${file}:`;
+  if (/\r/.test(text)) throw new PostError(`${where} use LF line endings`);
+  let parsed;
+  try {
+    parsed = frontmatter(text);
+  } catch (e) {
+    throw new PostError(`${where} ${e.message}`);
+  }
+  const { data, body } = parsed;
+  for (const k of Object.keys(data)) if (!['title', 'description', 'updated'].includes(k)) throw new PostError(`${where} unknown key ${k}`);
+  for (const k of ['title', 'description', 'updated']) if (!data[k]) throw new PostError(`${where} missing ${k}`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.updated)) throw new PostError(`${where} updated must be YYYY-MM-DD`);
+  let html;
+  try {
+    html = markdown(body);
+  } catch (e) {
+    throw new PostError(`${where} ${e.message}`);
+  }
+  const name = file.replace(/\.md$/, '');
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(name)) throw new PostError(`${where} file name must be lower-case words joined by hyphens`);
+  return { name, ...data, html };
+}
+
+export function pagePage(page) {
+  const body = `    <article class="blog__post">
+    <p class="blog__date">Last updated ${esc(longDate(page.updated))}</p>
+    <h1 class="h2 blog__h1">${esc(page.title)}</h1>
+    <div class="blog__body">
+${page.html}
+    </div>
+    </article>`;
+  return shell({
+    title: `${page.title} | Digital Custody Academy`,
+    shareTitle: page.title,
+    description: page.description,
+    path: `/${page.name}/`,
+    current: page.name,
+    body,
+  });
+}
+
+export function loadPages(dir = PAGES_SRC) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .sort()
+    .map((f) => parsePage(f, readFileSync(join(dir, f), 'utf8')));
+}
+
 /** Every file the blog produces, keyed by path under public/blog/. Posts newest first. */
 export function renderBlog(all, { includeDrafts = false } = {}) {
   const posts = all.filter((p) => includeDrafts || !p.draft).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
@@ -296,6 +409,7 @@ export function renderBlog(all, { includeDrafts = false } = {}) {
   const files = new Map([
     ['blog.css', css],
     ['index.html', indexPage(posts)],
+    ['feed.xml', feed(posts)],
   ]);
   for (const p of posts) files.set(`${p.slug}/index.html`, postPage(p));
   return { files, posts };
@@ -318,6 +432,11 @@ function main(argv) {
     const f = join(OUT, rel);
     mkdirSync(dirname(f), { recursive: true });
     writeFileSync(f, text);
+  }
+  for (const page of loadPages()) {
+    const f = join(repo, 'public', page.name, 'index.html');
+    mkdirSync(dirname(f), { recursive: true });
+    writeFileSync(f, pagePage(page));
   }
   const drafts = all.filter((p) => p.draft).length;
   const note = includeDrafts ? ' (drafts included: preview only, never commit or deploy this)' : drafts ? ` (${drafts} draft${drafts === 1 ? '' : 's'} skipped)` : '';

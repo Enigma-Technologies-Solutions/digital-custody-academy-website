@@ -9,6 +9,38 @@ const Arrow = () => (
 
 const Stop = () => <span className="pd" aria-hidden="true" />;
 
+// Posted by public/newsletter.js, which also renders the Turnstile check on focus.
+const Newsletter = ({ id }: { id: string }) => (
+  <form className="nl" data-newsletter="dca" noValidate>
+    <label className="nl__label" htmlFor={id}>
+      Email address
+    </label>
+    <div className="nl__row">
+      <input
+        id={id}
+        className="nl__input"
+        type="email"
+        name="email"
+        required
+        autoComplete="email"
+        placeholder="you@company.com"
+      />
+      <button className="btn btn--accent" type="submit">
+        Subscribe
+      </button>
+    </div>
+    <label className="nl__hp" aria-hidden="true">
+      Website <input name="website" tabIndex={-1} autoComplete="off" />
+    </label>
+    <div className="nl__challenge" />
+    <p className="nl__status" role="status" aria-live="polite" />
+    <p className="nl__fine">
+      We email you a link to confirm. Every issue has an unsubscribe link.{" "}
+      <a href="/privacy/">Privacy</a>
+    </p>
+  </form>
+);
+
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#modules", label: "Modules" },
@@ -113,6 +145,9 @@ export default function Index() {
             ))}
           </div>
           <div className="nav__cta">
+            <a className="btn btn--ghost btn--sm" href="#updates">
+              Get updates
+            </a>
             <a className="btn btn--accent btn--sm" href="#contact">
               Contact
             </a>
@@ -390,6 +425,26 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Updates */}
+        <section className="section" id="updates">
+          <div className="wrap updates">
+            <div>
+              <p className="eyebrow">05 · Updates</p>
+              <h2 className="h2">
+                new modules, by email
+                <Stop />
+              </h2>
+              <p className="lede updates__lede">
+                An email when a module or lesson is published, and when there is a new post on
+                the blog. Nothing else.
+              </p>
+            </div>
+            <div className="card updates__card">
+              <Newsletter id="nl-email" />
+            </div>
+          </div>
+        </section>
+
         {/* Contact */}
         <section className="section section--band" id="contact">
           <div className="wrap">
@@ -438,6 +493,9 @@ export default function Index() {
               </p>
               <nav className="foot__links" aria-label="Footer">
                 <a href="/blog/">Blog</a>
+                <a href="/blog/feed.xml">RSS</a>
+                <a href="#updates">Newsletter</a>
+                <a href="/privacy/">Privacy</a>
               </nav>
             </div>
             <a className="foot__by" href="https://enigma.sh">
