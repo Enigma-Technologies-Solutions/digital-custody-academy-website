@@ -14,7 +14,7 @@ pnpm build        # outputs dist/
 
 Static pages at `/blog/`, built from `blog-src/*.md` by `scripts/build-blog.mjs`, which `pnpm dev` and `pnpm build` run first. Preview drafts with `pnpm dev:drafts`. How to write, preview and publish a post: [`docs/blog.md`](docs/blog.md).
 
-The same script writes the RSS feed (`/blog/feed.xml`) and the site's other static pages from `pages-src/*.md` (for now `/privacy/`).
+The same script writes the RSS feed (`/blog/feed.xml`) and the site's other static pages from `pages-src/*.md` (for now `/privacy/`), the 404 page (`/404.html`) and `/sitemap.xml`.
 
 ## Newsletter
 

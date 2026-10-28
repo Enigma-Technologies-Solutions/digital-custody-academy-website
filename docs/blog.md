@@ -150,3 +150,8 @@ frontmatter fields, all required: `title`, `description` and `updated` (`YYYY-MM
 shown as "Last updated"). The body uses the same Markdown subset. Each becomes
 `public/<name>/index.html` (git-ignored, rebuilt every run) in the blog's page template.
 When a page is added, add its folder to `.gitignore` as for `public/privacy/`.
+
+The same run writes `public/sitemap.xml` (the landing page, the blog index, published
+posts and these pages; never drafts), which `public/robots.txt` points to, and
+`public/404.html`, the page GitHub Pages shows for any missing address. Both are
+git-ignored.
