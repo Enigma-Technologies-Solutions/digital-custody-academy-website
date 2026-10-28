@@ -10,7 +10,7 @@ pnpm dev          # http://localhost:5000
 pnpm build        # outputs dist/
 ```
 
-`pnpm build` also prerenders the landing page (`scripts/prerender.mjs`, from `client/entry-server.tsx`), so `dist/index.html` carries the page's text for crawlers that do not run JavaScript; `client/App.tsx` hydrates it. Keep `client/pages/Index.tsx` free of browser-only code during render (`window`, `document`, dates), or the server render fails or the hydration does not match.
+`pnpm build` also prerenders the landing page (`scripts/prerender.mjs`, from `client/entry-server.tsx`), so `dist/index.html` is static HTML: it carries the page's text for crawlers that do not run JavaScript, and the React bundle is dropped from the published page (`client/App.tsx` only runs on the dev server). Keep `client/pages/Index.tsx` static: no browser-only code (`window`, `document`, dates), no state or event handlers. Anything interactive has to work in plain JavaScript, as `public/newsletter.js` does.
 
 ## Blog
 

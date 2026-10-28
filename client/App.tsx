@@ -1,10 +1,8 @@
 import "./site.css";
 
-import { createRoot, hydrateRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import Index from "./pages/Index";
 
-// In a production build #root already holds the prerendered page (scripts/prerender.mjs);
-// in dev it is empty.
-const root = document.getElementById("root")!;
-if (root.hasChildNodes()) hydrateRoot(root, <Index />);
-else createRoot(root).render(<Index />);
+// Dev server only. `pnpm build` prerenders the page to static HTML and drops this bundle
+// (scripts/prerender.mjs), so nothing here runs on the published site.
+createRoot(document.getElementById("root")!).render(<Index />);
