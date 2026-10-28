@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/build-blog.mjs && vite",
-    "build": "node scripts/build-blog.mjs && vite build",
+    "build": "node scripts/build-blog.mjs && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc",
     "blog:build": "node scripts/build-blog.mjs",

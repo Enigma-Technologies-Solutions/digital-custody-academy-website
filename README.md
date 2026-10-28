@@ -10,6 +10,8 @@ pnpm dev          # http://localhost:5000
 pnpm build        # outputs dist/
 ```
 
+`pnpm build` also prerenders the landing page (`scripts/prerender.mjs`, from `client/entry-server.tsx`), so `dist/index.html` carries the page's text for crawlers that do not run JavaScript; `client/App.tsx` hydrates it. Keep `client/pages/Index.tsx` free of browser-only code during render (`window`, `document`, dates), or the server render fails or the hydration does not match.
+
 ## Blog
 
 Static pages at `/blog/`, built from `blog-src/*.md` by `scripts/build-blog.mjs`, which `pnpm dev` and `pnpm build` run first. Preview drafts with `pnpm dev:drafts`. How to write, preview and publish a post: [`docs/blog.md`](docs/blog.md).
